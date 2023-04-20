@@ -1,4 +1,8 @@
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
+<script>
+	import Login from '$lib/components/pages/login.svelte';
+</script>
+
+<Login />
 
 <style lang="postcss">
 	:global(html) {

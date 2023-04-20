@@ -1,0 +1,32 @@
+@prod = 
+@dev =
+@local = http://[::1]:5173
+
+###
+GET {{local}}/api/songs
+
+###
+GET {{local}}/api/songs/6440c4c0c58c3e074af7c54b
+
+###
+POST {{local}}/api/songs
+Content-Type: application/json
+
+{
+  "src": "https://github.com/pwhb/public/blob/main/music/Freddie%20Mercury%20-%20Living%20On%20My%20Own%20(1993%20Remix%20Remastered)-HTdd8QxifbY.webm?raw=true",
+  "title": "Living On My Own",
+  "artist": "Freddie Mercury",
+  "youtube": "https://youtu.be/HTdd8QxifbY",
+  "active": false
+}
+
+###
+PATCH {{local}}/api/songs/6440eab19c2e9a9153bfe59a
+Content-Type: application/json
+
+{
+  "active": true
+}
+
+###
+DELETE {{local}}/api/songs/6440cc33c58c3e074af7c54c
