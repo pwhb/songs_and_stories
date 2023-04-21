@@ -1,17 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Breadcrumbs from '$lib/components/common/breadcrumbs.svelte';
-	import { capitalize } from '$lib/utils/formatters';
+	import { capitalize, getPath } from '$lib/utils/formatters';
 
 	let data: any[] = [];
 	// https://www.svgrepo.com/show/449889/save.svg
 	const { user } = $page.data;
 
+	console.log($page.url);
+
 	const sidebarMenus = [
 		{
 			icon: 'https://www.svgrepo.com/show/449685/cog.svg',
 			label: 'config',
-			href: '/bean-noodle/configs'
+			href: '/bean-noodle/config'
 		},
 		{
 			icon: 'https://www.svgrepo.com/show/449959/users.svg',
@@ -41,10 +43,10 @@
 			</h1>
 			<ul class="menu w-56 p-5 gap-3">
 				{#each sidebarMenus as menu}
-					<li>
+					<li class={menu.label === getPath($page.url.pathname) ? 'bordered' : ''}>
 						<a href={menu.href}>
 							<img class="w-6" src={menu.icon} alt={menu.label} />
-							<span class="text-black font-medium text-lg">{menu.label}</span>
+							<span class="text-black font-medium text-lg capitalize">{menu.label}</span>
 						</a>
 					</li>
 				{/each}
@@ -57,6 +59,9 @@
 	<!-- Content -->
 	<div class="flex flex-col w-full overflow-y-auto">
 		<Breadcrumbs />
-		<slot />
+		<div class="px-10">
+			<slot />
+		</div>
+		<p>{$page.url}</p>
 	</div>
 </div>

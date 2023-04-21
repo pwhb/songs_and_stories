@@ -35,7 +35,7 @@
 						</a>
 					</li>
 				{/if}
-				<li><a href="/bean-noodle/configs">Settings</a></li>
+				<li><a href="/bean-noodle/config">Settings</a></li>
 				{#if user}
 					<li>
 						<form action="/logout" method="POST">
