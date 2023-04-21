@@ -27,7 +27,7 @@
 </script>
 
 <!-- <p class="text-3xl font-medium text-primary mb-10">Edit Config</p> -->
-<div class="max-w-7xl mx-auto">
+<div class="mx-auto">
 	<form on:submit={handleSubmit}>
 		<JSONEditor bind:content />
 		<div class="text-center mt-10">
