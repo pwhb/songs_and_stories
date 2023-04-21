@@ -5,15 +5,20 @@ import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
 const authMiddleware: Handle = async ({ event, resolve }) => {
-	const authHeader = event.request.headers.get('Authorization');
+	let token = event.cookies.get('token');
 
-	if (!authHeader) {
-		return await resolve(event);
-	}
+	if (!token) {
+		const authHeader = event.request.headers.get('Authorization');
 
-	const [BeanNoodle, token] = authHeader.split(' ');
-	if (BeanNoodle !== 'BeanNoodle') {
-		return await resolve(event);
+		if (!authHeader) {
+			return await resolve(event);
+		}
+
+		const [BeanNoodle, tokenFromHeader] = authHeader.split(' ');
+		if (BeanNoodle !== 'BeanNoodle' || !tokenFromHeader) {
+			return await resolve(event);
+		}
+		token = tokenFromHeader;
 	}
 
 	const decoded = verifyToken(token) as any;

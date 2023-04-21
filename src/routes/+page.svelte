@@ -1,11 +1,8 @@
 <script>
-	import Login from '$lib/components/pages/login.svelte';
+	import { page } from '$app/stores';
+
+	console.log($page.data);
 </script>
 
-<Login />
+<p>Home</p>
 
-<style lang="postcss">
-	:global(html) {
-		background-color: theme(colors.gray.100);
-	}
-</style>

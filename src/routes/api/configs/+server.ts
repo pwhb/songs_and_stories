@@ -2,8 +2,9 @@ import clientPromise from '$lib/mongodb';
 import { MONGODB_DATABASE } from '$env/static/private';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { startCase } from '$lib/utils/formatters';
+import { logHistory } from '$lib/utils/history';
 
-const COLLECTION = 'writings';
+const COLLECTION = 'configs';
 
 export const GET: RequestHandler = async ({ locals, url }: RequestEvent) => {
 	if (!locals.user) {
@@ -20,7 +21,12 @@ export const GET: RequestHandler = async ({ locals, url }: RequestEvent) => {
 		if (!!active) {
 			filter.active = active == 'true';
 		}
-		const docs = await col.find(filter).toArray();
+		const pipeline = [
+			{
+				$match: filter
+			}
+		];
+		const docs = await col.aggregate(pipeline).toArray();
 		return json({ success: true, data: docs, total: docs.length }, { status: 200 });
 	} catch (err) {
 		console.error(err);
@@ -38,17 +44,29 @@ export const POST: RequestHandler = async ({ locals, request }: RequestEvent) =>
 		const col = db.collection(COLLECTION);
 
 		const body = await request.json();
-		const res = await col.insertOne(
-			{
-				title: startCase(body.title),
-				artist: startCase(body.artist),
-				createdAt: new Date(),
-				updatedAt: new Date(),
-				active: !!body.active ? body.active : true,
-				...body
-			},
-			{}
-		);
+
+		const existingDocument = await col.findOne({
+			name: body.name
+		});
+
+		if (existingDocument) {
+			return json(
+				{ success: false, error: { message: 'config name already taken' } },
+				{ status: 400 }
+			);
+		}
+
+		const res = await col.insertOne({
+			...body,
+			appName: startCase(body.appName)
+		});
+
+		await logHistory({
+			doc: { _id: res.insertedId, ...body },
+			collection: COLLECTION,
+			operation: 'insert',
+			updatedBy: locals.user._id
+		});
 
 		return json({ success: true, data: res }, { status: 201 });
 	} catch (err) {

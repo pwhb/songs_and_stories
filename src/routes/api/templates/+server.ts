@@ -3,7 +3,7 @@ import { MONGODB_DATABASE } from '$env/static/private';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { startCase } from '$lib/utils/formatters';
 
-const COLLECTION = 'writings';
+const COLLECTION = 'songs';
 
 export const GET: RequestHandler = async ({ locals, url }: RequestEvent) => {
 	if (!locals.user) {

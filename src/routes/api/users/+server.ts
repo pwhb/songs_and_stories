@@ -69,7 +69,7 @@ export const POST: RequestHandler = async ({ request, locals }: RequestEvent) =>
 
 		const body = await request.json();
 
-		const existingUser = await col.findOne({
+		const existingDocument = await col.findOne({
 			$or: [
 				{
 					username: body.username
@@ -80,7 +80,7 @@ export const POST: RequestHandler = async ({ request, locals }: RequestEvent) =>
 			]
 		});
 
-		if (existingUser) {
+		if (existingDocument) {
 			return json(
 				{ success: false, error: { message: 'username already taken' } },
 				{ status: 400 }

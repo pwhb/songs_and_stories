@@ -61,21 +61,21 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 	}
 };
 
-// export const DELETE: RequestHandler = async ({ locals, cookies, params }: RequestEvent) => {
-// 	if (!locals.user) {
-// 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
-// 	}
-// 	try {
-// 		const { id } = params;
-// 		const client = await clientPromise;
-// 		const db = client.db(MONGODB_DATABASE);
-// 		const col = db.collection(COLLECTION);
+export const DELETE: RequestHandler = async ({ locals, cookies, params }: RequestEvent) => {
+	if (!locals.user) {
+		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
+	}
+	try {
+		const { id } = params;
+		const client = await clientPromise;
+		const db = client.db(MONGODB_DATABASE);
+		const col = db.collection(COLLECTION);
 
-// 		const res = await col.deleteOne({ _id: new ObjectId(id) });
+		const res = await col.deleteOne({ _id: new ObjectId(id) });
 
-// 		return json({ success: true, data: res }, { status: 200 });
-// 	} catch (err) {
-// 		console.error(err);
-// 		return json({ success: false, error: err }, { status: 400 });
-// 	}
-// };
+		return json({ success: true, data: res }, { status: 200 });
+	} catch (err) {
+		console.error(err);
+		return json({ success: false, error: err }, { status: 400 });
+	}
+};
