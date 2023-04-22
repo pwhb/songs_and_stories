@@ -3,18 +3,29 @@
 @local = http://[::1]:5173
 
 
-@pwh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicHdoIiwicm9sZSI6ImF1dGhvciJ9LCJpYXQiOjE2ODIwNTA0ODYsImV4cCI6MTY4MjA1NDA4Nn0.PCmVZ4njTFg9HU_FzeqWxpGBFch6G7D4U08Z2Q98kc0
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjgyMTY2MzI5LCJleHAiOjE2ODIxNjk5Mjl9.GN4yha02TJ1HgHVZzA8scuykYF98pJDOFjprfkWkH5A
+
+###
+POST {{local}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "nilar"
+}
 
 ###
 GET {{local}}/api/songs
+Authorization: BeanNoodle {{token}}
 
 ###
 GET {{local}}/api/songs/6440c4c0c58c3e074af7c54b
+Authorization: BeanNoodle {{token}}
 
 ###
 POST {{local}}/api/songs
 Content-Type: application/json
-Authorization: BeanNoodle {{pwh_token}}
+Authorization: BeanNoodle {{token}}
 
 {
   "src": "https://github.com/pwhb/public/blob/main/music/Freddie%20Mercury%20-%20Living%20On%20My%20Own%20(1993%20Remix%20Remastered)-HTdd8QxifbY.webm?raw=true",

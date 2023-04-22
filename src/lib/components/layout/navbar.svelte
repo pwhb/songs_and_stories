@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	import { parseAvatarPlaceholder } from '$lib/utils/formatters';
 	import AppName from './appName.svelte';
 
 	const { config, user } = $page.data;
@@ -28,7 +29,7 @@
 					{:else}
 						<div class="avatar placeholder">
 							<div class="bg-neutral-focus text-neutral-content rounded-full w-10">
-								<span class="text-sm">{user.username[0]}</span>
+								<span class="text-sm">{parseAvatarPlaceholder(user)}</span>
 							</div>
 						</div>
 					{/if}

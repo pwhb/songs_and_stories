@@ -1,18 +1,25 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+
 	import { toast } from '@zerodevx/svelte-toast';
 	import { page } from '$app/stores';
 	import Input from '$lib/components/common/input.svelte';
-	const { fullUser } = $page.data;
-	let { firstName, lastName, username, penName, avatar } = fullUser;
+	import Select from '$lib/components/common/select.svelte';
+
+	const { doc, roles } = $page.data;
+	const options = roles.map((v: string) => {
+		return { label: v, value: v };
+	});
+
+	let { firstName, lastName, username, penName, avatar, role } = doc;
 
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
 
-		const url = `/api/users`;
+		const url = `/api/users/${doc._id}`;
 		const options = {
 			method: 'PATCH',
-			body: JSON.stringify({ firstName, lastName, username, penName, avatar })
+			body: JSON.stringify({ firstName, lastName, username, penName, avatar, role })
 		};
 
 		const res = await fetch(url, options);
@@ -59,6 +66,7 @@
 		placeholder="https://www.svgrepo.com/show/509009/avatar-thinking-3.svg"
 		bind:value={avatar}
 	/>
+	<Select label="Role" name="role" {options} bind:value={role} />
 	<div class="form-control mt-6">
 		<button class="btn btn-primary" type="submit">Submit</button>
 	</div>

@@ -1,6 +1,7 @@
 import { MONGODB_DATABASE } from '$env/static/private';
 import clientPromise from '$lib/mongodb';
 import { slugify } from '$lib/utils/formatters';
+import { logHistory } from '$lib/utils/history';
 import { getUpdateDocument } from '$lib/utils/validate';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { hash } from 'argon2';
@@ -9,7 +10,7 @@ import { ObjectId } from 'mongodb';
 const COLLECTION = 'users';
 
 export const GET: RequestHandler = async ({ url, locals }: RequestEvent) => {
-	if (!locals.user) {
+	if (!locals.user || locals.user.role.name !== 'admin') {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -59,7 +60,7 @@ export const GET: RequestHandler = async ({ url, locals }: RequestEvent) => {
 };
 
 export const POST: RequestHandler = async ({ request, locals }: RequestEvent) => {
-	if (!locals.user) {
+	if (!locals.user || locals.user.role.name !== 'admin') {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -134,7 +135,12 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 			},
 			{ returnDocument: 'after' }
 		);
-
+		await logHistory({
+			doc: res.value,
+			collection: COLLECTION,
+			operation: 'update',
+			updatedBy: locals.user._id
+		});
 		return json({ success: true, data: res.value }, { status: 201 });
 	} catch (err) {
 		console.error(err);

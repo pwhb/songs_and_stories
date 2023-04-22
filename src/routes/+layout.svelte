@@ -1,10 +1,10 @@
 <script>
 	import { page } from '$app/stores';
+	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import Footer from '$lib/components/layout/footer.svelte';
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import '../app.css';
-
-	
+	const options = {};
 </script>
 
 <main data-theme="cupcake">
@@ -19,4 +19,5 @@
 	</div>
 
 	<Footer />
+	<SvelteToast {options} />
 </main>

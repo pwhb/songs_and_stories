@@ -24,3 +24,22 @@ export const getBreadcrumbs = (pathname: string) => {
 };
 
 export const getPath = (pathname: string) => pathname.split('/').slice(-1)[0];
+
+export const parseAvatarPlaceholder = (user: any) => {
+	if (user.firstName && user.lastName) {
+		return user.firstName[0] + user.lastName[0];
+	}
+
+	return user.username[0];
+};
+
+export const checkIsAllowed = (role: any, path: string) => {
+	if (!path) {
+		return true;
+	}
+	const access = Object.keys(role.details);
+	if (!access.includes(path) && !access.includes('all')) {
+		return false;
+	}
+	return true;
+};

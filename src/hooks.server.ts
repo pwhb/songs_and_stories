@@ -53,7 +53,7 @@ const authMiddleware: Handle = async ({ event, resolve }) => {
 					username: 1,
 					avatar: 1,
 					penName: 1,
-					'role.access': 1,
+					'role.details': 1,
 					'role.name': 1
 				}
 			},

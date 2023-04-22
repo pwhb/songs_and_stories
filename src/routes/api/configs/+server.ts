@@ -7,7 +7,7 @@ import { logHistory } from '$lib/utils/history';
 const COLLECTION = 'configs';
 
 export const GET: RequestHandler = async ({ locals, url }: RequestEvent) => {
-	if (!locals.user) {
+	if (!locals.user || locals.user.role.name !== 'admin') {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -35,7 +35,7 @@ export const GET: RequestHandler = async ({ locals, url }: RequestEvent) => {
 };
 
 export const POST: RequestHandler = async ({ locals, request }: RequestEvent) => {
-	if (!locals.user) {
+	if (!locals.user || locals.user.role.name !== 'admin') {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {

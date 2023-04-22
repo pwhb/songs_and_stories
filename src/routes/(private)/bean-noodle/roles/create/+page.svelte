@@ -1,24 +1,37 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+
 	import { toast } from '@zerodevx/svelte-toast';
 	import { page } from '$app/stores';
 	import Input from '$lib/components/common/input.svelte';
-	const { fullUser } = $page.data;
-	let { firstName, lastName, username, penName, avatar } = fullUser;
+	import PasswordInput from '$lib/components/common/passwordInput.svelte';
+	import Select from '$lib/components/common/select.svelte';
+
+	const { roles } = $page.data;
+	const options = roles.map((v: string) => {
+		return { label: v, value: v };
+	});
+	let firstName = '',
+		lastName = '',
+		username = '',
+		penName = '',
+		password = '',
+		avatar = '',
+		role = '';
 
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
 
 		const url = `/api/users`;
 		const options = {
-			method: 'PATCH',
-			body: JSON.stringify({ firstName, lastName, username, penName, avatar })
+			method: 'POST',
+			body: JSON.stringify({ firstName, lastName, username, penName, role, avatar, password })
 		};
 
 		const res = await fetch(url, options);
 		const data = await res.json();
 		if (data.success) {
-			toast.push('Successfully Updated!', {
+			toast.push('Successfully Created!', {
 				theme: {
 					'--toastColor': 'mintcream',
 					'--toastBackground': 'rgba(72,187,120,0.9)',
@@ -41,7 +54,7 @@
 		{:else}
 			<div class="avatar placeholder">
 				<div class="bg-neutral-focus text-neutral-content rounded-full w-24">
-					<span class="text-2xl">{firstName[0]}{lastName[0]}</span>
+					<span class="text-2xl">?</span>
 				</div>
 			</div>
 		{/if}
@@ -59,6 +72,8 @@
 		placeholder="https://www.svgrepo.com/show/509009/avatar-thinking-3.svg"
 		bind:value={avatar}
 	/>
+	<Select label="Role" name="role" {options} bind:value={role} />
+	<PasswordInput name="password" label="Password" bind:value={password} />
 	<div class="form-control mt-6">
 		<button class="btn btn-primary" type="submit">Submit</button>
 	</div>
