@@ -2,7 +2,7 @@
 @dev =
 @local = http://[::1]:5173
 
-@pwh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicHdoIiwicm9sZSI6ImF1dGhvciJ9LCJpYXQiOjE2ODIwNjExMjgsImV4cCI6MTY4MjA2NDcyOH0.Wc5lXIKVGQ6W9IPkG6XFQD-xA-JewT73IamXsAjbl1o
+@pwh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicHdoIiwicm9sZSI6ImF1dGhvciJ9LCJpYXQiOjE2ODIwODkzNjYsImV4cCI6MTY4MjA5Mjk2Nn0.mf4waCq-SfMUsCKti7GbojEQyBhJXUNBePLgibyTMyk
 
 @nwh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoibndoIiwicm9sZSI6ImF1dGhvciJ9LCJpYXQiOjE2ODE5ODQwNDEsImV4cCI6MTY4MTk4NzY0MX0.3WuYkA5hzAXT-uWnBYX5SZaUykjwKZ6mqd1YpjsIQW4
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 Authorization: BeanNoodle {{pwh_token}}
 
 {
-  "name": "main",
+  "name": "private",
   "appName": "songs and stories"
 }
 

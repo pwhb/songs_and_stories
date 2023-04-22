@@ -2,13 +2,24 @@
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { JSONEditor } from 'svelte-jsoneditor';
-	const { config } = $page.data;
+
+	const configNames = $page.data.docs.map((v: { name: any }) => v.name);
+
+	let selected = 'main';
+
 	let content = {
-		text: undefined, // can be used to pass a stringified JSON document instead
-		json: {
-			...config
-		}
+		text: undefined,
+		json: {}
 	};
+
+	const getSelectedDocument = (selected: string) => $page.data.map[selected];
+
+	$: {
+		content = {
+			text: undefined,
+			json: getSelectedDocument(selected)
+		};
+	}
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
 		const payload = JSON.parse(content.text as any);
@@ -28,6 +39,13 @@
 
 <!-- <p class="text-3xl font-medium text-primary mb-10">Edit Config</p> -->
 <div class="">
+	<div class="text-center mb-5">
+		<select class="select select-primary w-full max-w-xs" bind:value={selected}>
+			{#each configNames as configName}
+				<option value={configName}>{configName}</option>
+			{/each}
+		</select>
+	</div>
 	<form on:submit={handleSubmit}>
 		<JSONEditor bind:content />
 		<div class="text-center mt-10">

@@ -41,8 +41,7 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 			{ name: id },
 			{
 				...body,
-				name: id,
-				appName: startCase(body.appName)
+				name: id
 			}
 		);
 

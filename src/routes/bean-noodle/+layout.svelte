@@ -5,44 +5,20 @@
 
 	let data: any[] = [];
 	// https://www.svgrepo.com/show/449889/save.svg
-	const { user } = $page.data;
+	const { user, privateConfig } = $page.data;
 
-	console.log($page.url);
-
-	const sidebarMenus = [
-		{
-			icon: 'https://www.svgrepo.com/show/449685/cog.svg',
-			label: 'config',
-			href: '/bean-noodle/config'
-		},
-		{
-			icon: 'https://www.svgrepo.com/show/449959/users.svg',
-			label: 'users',
-			href: '/bean-noodle/users'
-		},
-		{
-			icon: 'https://www.svgrepo.com/show/449778/headset.svg',
-			label: 'songs',
-			href: '/bean-noodle/songs'
-		},
-		{
-			icon: 'https://www.svgrepo.com/show/449744/file.svg',
-			label: 'writings',
-			href: '/bean-noodle/writings'
-		}
-	];
 </script>
 
 <div class="flex overflow-hidden">
 	<!-- Sidebar -->
-	<div class="flex flex-col w-64 bg-base-200">
+	<div class="flex flex-col w-64 min-h-[75vh] bg-base-200">
 		<!-- Sidebar Header -->
 		<div class="flex flex-col items-center mt-10">
 			<h1 class="text-xl text-center font-bold text-primary w-64 mb-10">
 				{user.username} ({user.role})
 			</h1>
 			<ul class="menu w-56 p-5 gap-3">
-				{#each sidebarMenus as menu}
+				{#each $page.data.privateConfig.sidebarMenus as menu}
 					<li class={menu.label === getPath($page.url.pathname) ? 'bordered' : ''}>
 						<a href={menu.href}>
 							<img class="w-6" src={menu.icon} alt={menu.label} />
@@ -59,9 +35,8 @@
 	<!-- Content -->
 	<div class="flex flex-col w-full overflow-y-auto">
 		<Breadcrumbs />
-		<div class="px-10">
+		<div class="px-10 mb-10">
 			<slot />
 		</div>
-		<p>{$page.url}</p>
 	</div>
 </div>
