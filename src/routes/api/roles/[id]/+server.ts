@@ -1,10 +1,9 @@
 import { MONGODB_DATABASE } from '$env/static/private';
 import clientPromise from '$lib/mongodb';
-import { startCase } from '$lib/utils/formatters';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 
-const COLLECTION = 'songs';
+const COLLECTION = 'roles';
 
 export const GET: RequestHandler = async ({ locals, cookies, params }: RequestEvent) => {
 	if (!locals.user) {

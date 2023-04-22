@@ -31,10 +31,35 @@ const authMiddleware: Handle = async ({ event, resolve }) => {
 		const db = client.db(MONGODB_DATABASE);
 		const col = db.collection('users');
 
-		const user = (await col.findOne(
-			{ username: decoded.user.username },
-			{ projection: { username: 1, role: 1, avatar: 1, penName: 1 } }
-		)) as any;
+		// const user = (await col.findOne(
+		// 	{ username: decoded.user.username },
+		// 	{ projection: { username: 1, role: 1, avatar: 1, penName: 1 } }
+		// )) as any;
+		const pipeline = [
+			{ $match: { username: decoded.user.username } },
+			{
+				$lookup: {
+					from: 'roles',
+					localField: 'role',
+					foreignField: 'name',
+					as: 'role'
+				}
+			},
+			{
+				$unwind: '$role'
+			},
+			{
+				$project: {
+					username: 1,
+					avatar: 1,
+					penName: 1,
+					'role.access': 1,
+					'role.name': 1
+				}
+			},
+			{ $limit: 1 }
+		];
+		const user = (await col.aggregate(pipeline).toArray())[0] as any;
 
 		event.locals.user = user;
 	} catch (err) {

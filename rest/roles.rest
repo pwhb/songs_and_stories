@@ -1,0 +1,48 @@
+@prod = 
+@dev =
+@local = http://[::1]:5173
+
+@pwh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicHdoIiwicm9sZSI6ImF1dGhvciJ9LCJpYXQiOjE2ODIxMzY1NjAsImV4cCI6MTY4MjE0MDE2MH0.Z0pFgHtVealv4-KcfvMi9R25xNfTUb4ffzs7FE0j2C4
+
+
+###
+POST {{local}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "pwh",
+  "password": "nilar"
+}
+
+###
+GET {{local}}/api/roles
+Authorization: BeanNoodle {{pwh_token}}
+
+###
+GET {{local}}/api/roles/main
+
+###
+POST {{local}}/api/roles
+Content-Type: application/json
+Authorization: BeanNoodle {{pwh_token}}
+
+{
+  "name": "admin",
+  "access": ["configs", "users","songs", "writings"]
+}
+
+###
+PATCH {{local}}/api/roles/main
+Content-Type: application/json
+Authorization: BeanNoodle {{pwh_token}}
+
+{
+  "appName": "songs and stories",
+  "footer": {
+    "hello": "world"
+  }
+}
+
+###
+DELETE {{local}}/api/roles/main
+Authorization: BeanNoodle {{pwh_token}}
