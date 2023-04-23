@@ -25,7 +25,7 @@ export const getBreadcrumbs = (pathname: string) => {
 	return breadcrumbs;
 };
 
-export const getPath = (pathname: string) => pathname.split('/').slice(-1)[0];
+export const getPath = (pathname: string) => pathname.split('/')[2];
 
 export const parseAvatarPlaceholder = (user: any) => {
 	if (user.firstName && user.lastName) {
