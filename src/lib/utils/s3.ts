@@ -1,5 +1,6 @@
-import { S3 } from 'aws-sdk';
+import pkg from 'aws-sdk';
 import { APPLICATION_KEY, APPLICATION_KEY_ID, ENDPOINT } from '$env/static/private';
+const { S3 } = pkg;
 
 const options = {
 	endpoint: ENDPOINT,
@@ -8,13 +9,13 @@ const options = {
 };
 
 declare global {
-	var _s3: S3;
+	var _s3: any;
 }
 
 class Singleton {
 	private static _instance: Singleton;
 
-	private s3: S3;
+	private s3: any;
 	private constructor() {
 		this.s3 = new S3(options);
 		if (process.env.NODE_ENV === 'development') {
