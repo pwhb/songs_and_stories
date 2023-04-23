@@ -4,6 +4,7 @@
 	import Footer from '$lib/components/layout/footer.svelte';
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import '../app.css';
+	import NavProgress from '$lib/components/common/navProgress.svelte';
 	const options = {};
 </script>
 
@@ -20,4 +21,5 @@
 
 	<Footer />
 	<SvelteToast {options} />
+	<NavProgress />
 </main>
