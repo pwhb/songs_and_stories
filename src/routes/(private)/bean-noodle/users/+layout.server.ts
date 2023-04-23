@@ -1,6 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { MONGODB_DATABASE } from '$env/static/private';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 
 
 export const load: LayoutServerLoad = async ({ locals }) => {

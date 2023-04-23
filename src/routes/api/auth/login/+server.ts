@@ -1,5 +1,5 @@
 import { MONGODB_DATABASE } from '$env/static/private';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { generateToken } from '$lib/utils/jwt';
 import { type RequestHandler, type RequestEvent, json } from '@sveltejs/kit';
 import { verify } from 'argon2';

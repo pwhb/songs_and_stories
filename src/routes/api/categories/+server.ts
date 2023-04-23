@@ -3,7 +3,7 @@ import { MONGODB_DATABASE } from '$env/static/private';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { startCase } from '$lib/utils/formatters';
 
-const COLLECTION = 'songs';
+const COLLECTION = 'categories';
 
 export const GET: RequestHandler = async ({ locals, url }: RequestEvent) => {
 	if (!locals.user) {
@@ -40,8 +40,6 @@ export const POST: RequestHandler = async ({ locals, request }: RequestEvent) =>
 		const body = await request.json();
 		const res = await col.insertOne(
 			{
-				title: startCase(body.title),
-				artist: startCase(body.artist),
 				createdAt: new Date(),
 				updatedAt: new Date(),
 				active: !!body.active ? body.active : true,

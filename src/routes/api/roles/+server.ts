@@ -1,4 +1,4 @@
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { MONGODB_DATABASE } from '$env/static/private';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 

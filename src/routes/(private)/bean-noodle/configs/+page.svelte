@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { JSONEditor } from 'svelte-jsoneditor';
+	import JsonEditorWithLabel from '$lib/components/common/jsonEditorWithLabel.svelte';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	const configNames = $page.data.docs.map((v: { name: any }) => v.name);
 
 	let selected = 'main';
+	let loading = false;
 
 	let content = {
 		text: undefined,
@@ -22,6 +24,7 @@
 	}
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
+		loading = true;
 		const payload = JSON.parse(content.text as any);
 		const url = `/api/configs/${payload.name}`;
 		const options = {
@@ -32,8 +35,16 @@
 		const res = await fetch(url, options);
 		const data = await res.json();
 		if (data.success) {
+			toast.push('Successfully Updated!', {
+				theme: {
+					'--toastColor': 'mintcream',
+					'--toastBackground': 'rgba(72,187,120,0.9)',
+					'--toastBarBackground': '#2F855A'
+				}
+			});
 			await invalidateAll();
 		}
+		loading = false;
 	};
 </script>
 
@@ -47,9 +58,10 @@
 		</select>
 	</div>
 	<form on:submit={handleSubmit}>
-		<JSONEditor bind:content />
+		<!-- <JSONEditor bind:content /> -->
+		<JsonEditorWithLabel label="Config Editor" name="config" bind:content />
 		<div class="text-center mt-10">
-			<button class="btn btn-primary" type="submit">Submit</button>
+			<button class="btn btn-primary" type="submit" disabled={loading}>Submit</button>
 		</div>
 	</form>
 </div>

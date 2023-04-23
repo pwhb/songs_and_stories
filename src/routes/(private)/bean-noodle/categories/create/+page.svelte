@@ -2,25 +2,21 @@
 	import { goto, invalidateAll } from '$app/navigation';
 
 	import { toast } from '@zerodevx/svelte-toast';
-	import { page } from '$app/stores';
+
 	import Input from '$lib/components/common/input.svelte';
-	import { JSONEditor } from 'svelte-jsoneditor';
+	import Toggle from '$lib/components/common/toggle.svelte';
 
-	let name = '';
+	let name = '',
+		active = true;
 	let loading = false;
-
-	let content = {
-		text: undefined,
-		json: {}
-	};
 
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
 		loading = true;
-		const url = `/api/roles`;
+		const url = `/api/categories`;
 		const options = {
 			method: 'POST',
-			body: JSON.stringify({ name, details: JSON.parse(content.text as any) })
+			body: JSON.stringify({ name, label: name, value: name, active })
 		};
 
 		const res = await fetch(url, options);
@@ -36,14 +32,13 @@
 			await invalidateAll();
 		}
 		loading = false;
-		goto("/bean-noodle/roles")
+		goto("/bean-noodle/categories")
 	};
 </script>
 
 <form action="" on:submit={handleSubmit}>
-	<Input name="name" label="Username" placeholder="anakin23" bind:value={name} />
-	<!-- <Input name="details" label="Details" placeholder="anakin23" bind:value={content.text} /> -->
-	<JSONEditor bind:content />
+	<Input name="name" label="Name" placeholder="fiction" bind:value={name} />
+	<Toggle name="active" label="Active" bind:checked={active} />
 	<div class="form-control mt-6">
 		<button class="btn btn-primary" type="submit" disabled={loading}>Submit</button>
 	</div>

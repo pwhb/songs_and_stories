@@ -1,5 +1,5 @@
 import { MONGODB_DATABASE } from '$env/static/private';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { verifyToken } from '$lib/utils/jwt';
 import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	import { toast } from '@zerodevx/svelte-toast';
 	import { page } from '$app/stores';
@@ -7,6 +7,7 @@
 	import Select from '$lib/components/common/select.svelte';
 
 	const { doc, roles } = $page.data;
+	let loading = false;
 	const options = roles.map((v: string) => {
 		return { label: v, value: v };
 	});
@@ -15,7 +16,7 @@
 
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
-
+		loading = true;
 		const url = `/api/users/${doc._id}`;
 		const options = {
 			method: 'PATCH',
@@ -34,6 +35,8 @@
 			});
 			await invalidateAll();
 		}
+		loading = true;
+		goto("/bean-noodle/users")
 	};
 </script>
 
@@ -68,6 +71,6 @@
 	/>
 	<Select label="Role" name="role" {options} bind:value={role} />
 	<div class="form-control mt-6">
-		<button class="btn btn-primary" type="submit">Submit</button>
+		<button class="btn btn-primary" type="submit" disabled={loading}>Submit</button>
 	</div>
 </form>

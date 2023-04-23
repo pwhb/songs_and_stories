@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { MONGODB_DATABASE } from '$env/static/private';
 import { serialize } from '$lib/utils/validate';
 

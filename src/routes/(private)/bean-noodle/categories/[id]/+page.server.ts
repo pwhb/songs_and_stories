@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	const { id } = params;
 	const client = await clientPromise;
 	const db = client.db(MONGODB_DATABASE);
-	const doc = await db.collection('songs').findOne({ _id: new ObjectId(id) });
+	const doc = await db.collection('categories').findOne({ _id: new ObjectId(id) });
 
 	return {
 		doc: serialize(doc)

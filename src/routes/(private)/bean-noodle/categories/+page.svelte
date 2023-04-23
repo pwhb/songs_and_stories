@@ -12,23 +12,19 @@
 			<tr>
 				<th />
 				<th>Name</th>
-				<th>Username</th>
-				<th>Pen Name</th>
-				<th>Role</th>
 				<th>Created At</th>
 				<th>Updated At</th>
 				<th>Active</th>
-				<th> <a class="btn btn-primary btn-xs" href={`/bean-noodle/users/create`}>Create</a></th>
+				<th>
+					<a class="btn btn-primary btn-xs" href={`/bean-noodle/categories/create`}>Create</a></th
+				>
 			</tr>
 		</thead>
 		<tbody>
-			{#each docs as { _id, firstName, lastName, username, penName, role, createdAt, updatedAt, active }, idx}
+			{#each docs as { _id, name, createdAt, updatedAt, active }, idx}
 				<tr>
 					<th>{idx + 1}</th>
-					<td>{firstName + ' ' + lastName}</td>
-					<td>{username}</td>
-					<td>{penName}</td>
-					<td><div class="badge badge-primary">{role}</div></td>
+					<td>{name}</td>
 					<td>{parseDate(createdAt)}</td>
 					<td>{parseDate(updatedAt)}</td>
 					<td>
@@ -39,7 +35,7 @@
 						{/if}
 					</td>
 					<td>
-						<a class="btn btn-primary btn-xs" href={`/bean-noodle/users/${_id}`}>Edit</a>
+						<a class="btn btn-primary btn-xs" href={`/bean-noodle/categories/${_id}`}>Edit</a>
 						<button class="btn btn-secondary btn-xs">Delete</button>
 					</td>
 				</tr>

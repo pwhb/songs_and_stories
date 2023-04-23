@@ -1,5 +1,5 @@
 import { MONGODB_DATABASE } from '$env/static/private';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { slugify } from '$lib/utils/formatters';
 import { logHistory } from '$lib/utils/history';
 import { getUpdateDocument } from '$lib/utils/validate';

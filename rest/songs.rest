@@ -44,4 +44,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{local}}/api/songs/6440cc33c58c3e074af7c54c
+DELETE {{local}}/api/songs/6443e0718ab15ff98859140d
+Authorization: BeanNoodle {{token}}

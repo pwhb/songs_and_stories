@@ -1,5 +1,5 @@
 import { MONGODB_DATABASE } from '$env/static/private';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { startCase } from '$lib/utils/formatters';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';

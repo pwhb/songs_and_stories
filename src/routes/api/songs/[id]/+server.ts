@@ -1,5 +1,5 @@
 import { MONGODB_DATABASE } from '$env/static/private';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { startCase } from '$lib/utils/formatters';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
@@ -53,6 +53,9 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 			},
 			{ returnDocument: 'after' }
 		);
+		if (!res) {
+			return json({ success: false, error: { message: 'not found' } }, { status: 404 });
+		}
 
 		return json({ success: true, data: res.value }, { status: 201 });
 	} catch (err) {

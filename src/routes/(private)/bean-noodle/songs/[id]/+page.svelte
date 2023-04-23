@@ -1,25 +1,23 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	import { toast } from '@zerodevx/svelte-toast';
 	import { page } from '$app/stores';
 	import Input from '$lib/components/common/input.svelte';
-	import Select from '$lib/components/common/select.svelte';
+	import Toggle from '$lib/components/common/toggle.svelte';
+	import MusicPlayer from '$lib/components/common/musicPlayer.svelte';
 
-	const { doc, roles } = $page.data;
-	const options = roles.map((v: string) => {
-		return { label: v, value: v };
-	});
-
-	let { firstName, lastName, username, penName, avatar, role } = doc;
+	const { doc } = $page.data;
+	let loading = false;
+	let { src, title, artist, youtube, active, thumbnail } = doc;
 
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
-
-		const url = `/api/users/${doc._id}`;
+		loading = true;
+		const url = `/api/songs/${doc._id}`;
 		const options = {
 			method: 'PATCH',
-			body: JSON.stringify({ firstName, lastName, username, penName, avatar, role })
+			body: JSON.stringify({ src, title, artist, youtube, active, thumbnail })
 		};
 
 		const res = await fetch(url, options);
@@ -34,40 +32,30 @@
 			});
 			await invalidateAll();
 		}
+		loading = false;
+		goto("/bean-noodle/songs")
 	};
 </script>
 
+<MusicPlayer {title} {artist} {src} />
 <form action="" on:submit={handleSubmit}>
-	<div class="text-center mb-10">
-		{#if avatar}
-			<div class="avatar">
-				<div class="w-24 rounded-full">
-					<img src={avatar} class="bg-base-100" alt="avatar" />
-				</div>
-			</div>
-		{:else}
-			<div class="avatar placeholder">
-				<div class="bg-neutral-focus text-neutral-content rounded-full w-24">
-					<span class="text-2xl">{firstName[0]}{lastName[0]}</span>
-				</div>
-			</div>
-		{/if}
-	</div>
-	<div class="grid grid-cols-2 gap-4">
-		<Input name="firstName" label="First Name" placeholder="Anakin" bind:value={firstName} />
-		<Input name="lastName" label="Last Name" placeholder="Skywalker" bind:value={lastName} />
-	</div>
-
-	<Input name="username" label="Username" placeholder="anakin23" bind:value={username} />
-	<Input name="penName" label="Pen Name" placeholder="anakin23" bind:value={penName} />
+	<Input name="title" label="Title" placeholder="Fly Me To The Moon" bind:value={title} />
+	<Input name="artist" label="Artist" placeholder="Frank Sinatra" bind:value={artist} />
+	<Input name="src" label="Song URL" placeholder="Fly Me To The Moon" bind:value={src} />
 	<Input
-		name="avatar"
-		label="Avatar URL"
-		placeholder="https://www.svgrepo.com/show/509009/avatar-thinking-3.svg"
-		bind:value={avatar}
+		name="thumbnail"
+		label="Thumbnail URL"
+		placeholder="Fly Me To The Moon"
+		bind:value={thumbnail}
 	/>
-	<Select label="Role" name="role" {options} bind:value={role} />
+	<Input
+		name="youtube"
+		label="YouTube URL"
+		placeholder="https://www.youtube.com/watch?v=ZEcqHA7dbwM"
+		bind:value={youtube}
+	/>
+	<Toggle name="active" label="Active" bind:checked={active} />
 	<div class="form-control mt-6">
-		<button class="btn btn-primary" type="submit">Submit</button>
+		<button class="btn btn-primary" type="submit" disabled={loading}>Submit</button>
 	</div>
 </form>

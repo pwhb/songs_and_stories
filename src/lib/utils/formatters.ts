@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export const slugify = (str: string) => {
 	const split = str.toLowerCase().split(' ');
 	return split.join('-');
@@ -43,3 +45,5 @@ export const checkIsAllowed = (role: any, path: string) => {
 	}
 	return true;
 };
+
+export const parseDate = (date: string) => dayjs(date).format('MMMM D, YYYY h:mm A');

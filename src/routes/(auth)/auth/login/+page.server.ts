@@ -2,7 +2,7 @@ import { fail, json, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import { verify } from 'argon2';
 import { MONGODB_DATABASE } from '$env/static/private';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { generateToken } from '$lib/utils/jwt';
 
 export const load: PageServerLoad = async ({ locals }) => {

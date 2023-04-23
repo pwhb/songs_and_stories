@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-import clientPromise from '$lib/mongodb';
+import clientPromise from '$lib/utils/mongodb';
 import { MONGODB_DATABASE } from '$env/static/private';
 import { serialize } from '$lib/utils/validate';
 
