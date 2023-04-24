@@ -60,6 +60,6 @@
 		bind:value={avatar}
 	/>
 	<div class="form-control mt-6">
-		<button class="btn btn-primary" type="submit">Submit</button>
+		<button class="btn btn-primary" type="submit">Save</button>
 	</div>
 </form>

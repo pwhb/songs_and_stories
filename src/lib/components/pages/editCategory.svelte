@@ -39,6 +39,6 @@
 	<Input name="name" label="Name" placeholder="fiction" bind:value={name} />
 	<Toggle name="active" label="Active" bind:checked={active} />
 	<div class="form-control mt-6">
-		<button class="btn btn-primary" type="submit" disabled={loading}>Submit</button>
+		<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>
 	</div>
 </form>

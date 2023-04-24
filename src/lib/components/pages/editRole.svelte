@@ -47,6 +47,6 @@
 	<Input name="name" label="Username" placeholder="anakin23" bind:value={name} />
 	<JsonEditorWithLabel name="details" label="Role Editor" bind:content />
 	<div class="form-control mt-6">
-		<button class="btn btn-primary" type="submit" disabled={loading}>Submit</button>
+		<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>
 	</div>
 </form>

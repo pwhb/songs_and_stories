@@ -61,7 +61,7 @@
 		<!-- <JSONEditor bind:content /> -->
 		<JsonEditorWithLabel label="Config Editor" name="config" bind:content />
 		<div class="text-center mt-10">
-			<button class="btn btn-primary" type="submit" disabled={loading}>Submit</button>
+			<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>
 		</div>
 	</form>
 </div>

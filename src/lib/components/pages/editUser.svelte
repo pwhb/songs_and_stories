@@ -21,6 +21,10 @@
 		return { label: v, value: v };
 	});
 
+	const changeAvatar = (urls: any) => {
+		avatar = urls[0];
+	};
+
 	let { firstName, lastName, username, penName, avatar, role } = doc;
 	let password = '';
 	const handleSubmit = async (e: Event) => {
@@ -66,7 +70,7 @@
 		{/if}
 	</div>
 	<div class="m-10">
-		<Dropzone label="upload avatar" />
+		<Dropzone label="upload avatar" handleUpdateUrls={changeAvatar} />
 	</div>
 	<div class="grid grid-cols-2 gap-4">
 		<Input name="firstName" label="First Name" placeholder="Anakin" bind:value={firstName} />
@@ -79,13 +83,14 @@
 		name="avatar"
 		label="Avatar URL"
 		placeholder="https://www.svgrepo.com/show/509009/avatar-thinking-3.svg"
-		bind:value={avatar}
+		value={avatar}
+		disabled={true}
 	/>
 	<Select label="Role" name="role" {options} bind:value={role} />
 	{#if create}
 		<PasswordInput name="password" label="Password" bind:value={password} />
 	{/if}
 	<div class="form-control mt-6">
-		<button class="btn btn-primary" type="submit" disabled={loading}>Submit</button>
+		<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>
 	</div>
 </form>

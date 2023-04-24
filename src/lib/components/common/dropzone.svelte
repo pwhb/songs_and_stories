@@ -1,12 +1,14 @@
 <script lang="ts">
 	import FileDrop from 'filedrop-svelte';
 	import type { Files } from 'filedrop-svelte';
-	import { Circle3 } from 'svelte-loading-spinners';
+	import LoadingSpinner from './loadingSpinner.svelte';
 	let files: Files;
 	export let label = 'Upload files';
 	export let loading = false;
-	export let urls: string[] = [];
 
+	export let handleUpdateUrls = (urls: any) => {};
+
+	let urls: any = [];
 	const handleUpload = async (file: any) => {
 		loading = true;
 		const formData = new FormData();
@@ -30,16 +32,15 @@
 			if (success) {
 				console.log('upload', data);
 				urls = [...urls, data.Location];
+				handleUpdateUrls(urls);
 			}
 		}
-		// console.log(files);
-		// urls = files.accepted;
 	};
 </script>
 
-<div class="max-w-xl mx-auto text-center">
+<div class="max-w-xs mx-auto">
 	{#if loading}
-		<Circle3 />
+		<LoadingSpinner />
 	{:else}
 		<FileDrop on:filedrop={handleDrop}>
 			<div class="p-5 border-2 border-dashed border-primary shadow-md rounded-xl bg-base-500">
