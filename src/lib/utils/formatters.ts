@@ -46,4 +46,12 @@ export const checkIsAllowed = (role: any, path: string) => {
 	return true;
 };
 
+export const parseAccessDetails = (details: any) => {
+	const arr = [];
+	for (let access of Object.keys(details)) {
+		arr.push(`${access} (${details[access]})`);
+	}
+	return arr.join(', ');
+};
+
 export const parseDate = (date: string) => dayjs(date).format('MMMM D, YYYY h:mm A');

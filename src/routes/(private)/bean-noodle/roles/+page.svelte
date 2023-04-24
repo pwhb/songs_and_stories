@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { parseDate } from '$lib/utils/formatters';
+	import { parseAccessDetails, parseDate } from '$lib/utils/formatters';
 
 	const { docs } = $page.data;
 </script>
@@ -25,10 +25,10 @@
 					<th>{idx + 1}</th>
 					<td>{name}</td>
 					<td
-						>{#each Object.keys(details) as access}
-							{access}
-						{/each}</td
-					>
+						><p>
+							{parseAccessDetails(details)}
+						</p>
+					</td>
 					<td>{parseDate(createdAt)}</td>
 					<td>{parseDate(updatedAt)}</td>
 					<td>
