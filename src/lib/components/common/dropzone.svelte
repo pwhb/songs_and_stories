@@ -32,6 +32,8 @@
 			if (success) {
 				console.log('upload', data);
 				urls = [...urls, data.Location];
+				console.log(urls);
+
 				handleUpdateUrls(urls);
 			}
 		}
