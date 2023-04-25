@@ -63,7 +63,7 @@
 		{:else}
 			<div class="avatar placeholder">
 				<div class="bg-neutral-focus text-neutral-content rounded-full w-24">
-					<span class="text-2xl">{firstName[0]}{lastName[0]}</span>
+					<span class="text-2xl">{firstName && lastName ? firstName[0] + lastName[0] : ''}</span>
 				</div>
 			</div>
 		{/if}
