@@ -50,4 +50,3 @@
 		{/each}
 	</tbody>
 </TableWrapper>
->

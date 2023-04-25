@@ -1,21 +1,25 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Breadcrumbs from '$lib/components/common/breadcrumbs.svelte';
+	import MenubarToggle from '$lib/components/common/menubarToggle.svelte';
 	import Searchbar from '$lib/components/common/searchbar.svelte';
 	import { capitalize, checkIsAllowed, getPath } from '$lib/utils/formatters';
 
 	let data: any[] = [];
-	let hideMenus = false;
+	let hideMenus = true;
 	// https://www.svgrepo.com/show/449889/save.svg
 	const { user, privateConfig } = $page.data;
 </script>
 
 <div class="flex overflow-hidden px-10 gap-5">
 	{#if hideMenus}
-		<p>hidden</p>
+		<MenubarToggle bind:hideMenus />
 	{:else}
 		<!-- Sidebar -->
 		<div class="card shadow-2xl flex flex-col w-64 min-h-[75vh] bg-base-100">
+			<div class="text-center mt-10">
+				<MenubarToggle bind:hideMenus />
+			</div>
 			<!-- Sidebar Header -->
 			<div class="flex flex-col items-center mt-10">
 				<h1 class="text-xl text-center font-bold text-primary-content w-64 mb-10">
@@ -41,14 +45,25 @@
 			<!-- Sidebar Links -->
 		</div>
 	{/if}
-
-	<!-- Content -->
-	<div class="flex flex-col w-full overflow-y-auto">
-		<div class="card w-full max-w-7xl mx-auto shadow-2xl bg-base-300">
-			<Breadcrumbs />
-			<div class="card-body">
-				<slot />
+	{#if hideMenus}
+		<!-- Content -->
+		<div class="flex flex-col w-full overflow-y-auto">
+			<div class="card w-full mx-auto shadow-2xl bg-base-300">
+				<Breadcrumbs />
+				<div class="card-body">
+					<slot />
+				</div>
 			</div>
 		</div>
-	</div>
+	{:else}
+		<!-- Content -->
+		<div class="flex flex-col w-full overflow-y-auto">
+			<div class="card w-full max-w-7xl mx-auto shadow-2xl bg-base-300">
+				<Breadcrumbs />
+				<div class="card-body">
+					<slot />
+				</div>
+			</div>
+		</div>
+	{/if}
 </div>
