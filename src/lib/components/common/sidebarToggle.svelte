@@ -1,17 +1,17 @@
 <script>
-	export let hideMenus = false;
+	export let hide = false;
 
 	const toggle = () => {
-		hideMenus = !hideMenus;
+		hide = !hide;
 	};
 </script>
 
-{#if hideMenus}
+{#if hide}
 	<button class="btn btn-sm btn-circle btn-outline" on:click={toggle}>
 		<img src="https://www.svgrepo.com/show/449732/expand-arrows.svg" class="w-4" alt="expand" />
 	</button>
 {:else}
-	<button class="btn btn-xs btn-circle btn-outline" on:click={toggle}>
-		<img src="https://www.svgrepo.com/show/449931/times.svg" class="w-3" alt="minimize" />
+	<button class="btn btn-xs btn-ghost btn-circle" on:click={toggle}>
+		<img src="https://www.svgrepo.com/show/449931/times.svg" class="w-2" alt="minimize" />
 	</button>
 {/if}
