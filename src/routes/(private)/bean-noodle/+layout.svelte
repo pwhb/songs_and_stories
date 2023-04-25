@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Breadcrumbs from '$lib/components/common/breadcrumbs.svelte';
+	import Searchbar from '$lib/components/common/searchbar.svelte';
 	import { capitalize, checkIsAllowed, getPath } from '$lib/utils/formatters';
 
 	let data: any[] = [];
@@ -40,9 +41,8 @@
 	<div class="flex flex-col w-full overflow-y-auto">
 		<div class="card w-full max-w-7xl mx-auto shadow-2xl bg-base-300">
 			<Breadcrumbs />
-			<div class="card-body">
-				<slot />
-			</div>
+
+			<slot />
 		</div>
 	</div>
 </div>

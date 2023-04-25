@@ -5,7 +5,8 @@
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import '../app.css';
 	import NavProgress from '$lib/components/common/navProgress.svelte';
-	const options = {};
+
+	const options = { classes: ['log'] };
 </script>
 
 <main data-theme="cupcake">
@@ -23,3 +24,12 @@
 	<SvelteToast {options} />
 	<NavProgress />
 </main>
+
+<style>
+	:global(.log.info) {
+		--toastBackground: green;
+	}
+	:global(.log.warn) {
+		--toastBackground: red;
+	}
+</style>

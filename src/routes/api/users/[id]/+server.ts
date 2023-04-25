@@ -5,6 +5,7 @@ import { logHistory } from '$lib/utils/history';
 import { getUpdateDocument } from '$lib/utils/validate';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
+import { hash } from 'argon2';
 
 const COLLECTION = 'users';
 
@@ -23,7 +24,10 @@ export const GET: RequestHandler = async ({ locals, cookies, params }: RequestEv
 };
 
 export const PATCH: RequestHandler = async ({ locals, request, cookies, params }: RequestEvent) => {
-	if (!locals.user || locals.user.role.name !== 'admin') {
+	if (
+		!locals.user ||
+		(locals.user.role.name !== 'admin' && locals.user._id.toString() !== params.id)
+	) {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -33,15 +37,42 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 		const col = db.collection(COLLECTION);
 
 		const body = await request.json();
-		const update = getUpdateDocument(body, [
-			'username',
-			'penName',
-			'role',
-			'avatar',
-			'firstName',
-			'lastName'
-		]);
 
+		const existingDocument = await col.findOne({
+			$and: [
+				{
+					_id: {
+						$ne: new ObjectId(params.id)
+					}
+				},
+				{
+					$or: [
+						{
+							username: body.username
+						},
+						{
+							penName: body.penName
+						}
+					]
+				}
+			]
+		});
+
+		if (existingDocument) {
+			return json(
+				{ success: false, error: { message: 'username already taken' } },
+				{ status: 400 }
+			);
+		}
+
+		const keys = ['username', 'penName', 'avatar', 'firstName', 'lastName'];
+		if (locals.user.role.name === 'admin') {
+			keys.push('role');
+		}
+		const update = getUpdateDocument(body, keys);
+		if (body.password) {
+			update.password = await hash(body.password);
+		}
 		const res = await col.findOneAndUpdate(
 			{ _id: new ObjectId(id) },
 			{

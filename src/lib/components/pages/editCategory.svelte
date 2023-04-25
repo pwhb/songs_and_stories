@@ -21,14 +21,12 @@
 		const res = await fetch(url, options);
 		const data = await res.json();
 		if (data.success) {
-			toast.push(create ? 'Successfully Created!' : 'Successfully Updated!', {
-				theme: {
-					'--toastColor': 'mintcream',
-					'--toastBackground': 'rgba(72,187,120,0.9)',
-					'--toastBarBackground': '#2F855A'
-				}
-			});
+			toast.push(create ? 'Successfully Created!' : 'Successfully Updated!', { classes: ['info'] });
 			await invalidateAll();
+		} else {
+			toast.push(data.error && data.error.message ? data.error.message : 'Failed.', {
+				classes: ['warn']
+			});
 		}
 		loading = false;
 		goto('/bean-noodle/categories');

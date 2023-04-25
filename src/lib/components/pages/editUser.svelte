@@ -15,6 +15,7 @@
 	};
 	export let roles: any = [];
 	export let create = false;
+	export let showRole = true;
 
 	let loading = false;
 	const options = roles.map((v: string) => {
@@ -39,14 +40,12 @@
 		const res = await fetch(url, options);
 		const data = await res.json();
 		if (data.success) {
-			toast.push(create ? 'Successfully Created!' : 'Successfully Updated!', {
-				theme: {
-					'--toastColor': 'mintcream',
-					'--toastBackground': 'rgba(72,187,120,0.9)',
-					'--toastBarBackground': '#2F855A'
-				}
-			});
+			toast.push(create ? 'Successfully Created!' : 'Successfully Updated!', { classes: ['info'] });
 			await invalidateAll();
+		} else {
+			toast.push(data.error && data.error.message ? data.error.message : 'Failed.', {
+				classes: ['warn']
+			});
 		}
 		loading = true;
 		goto('/bean-noodle/users');
@@ -86,7 +85,9 @@
 		value={avatar}
 		disabled={true}
 	/>
-	<Select label="Role" name="role" {options} bind:value={role} />
+	{#if showRole}
+		<Select label="Role" name="role" {options} bind:value={role} />
+	{/if}
 	{#if create}
 		<PasswordInput name="password" label="Password" bind:value={password} />
 	{/if}
