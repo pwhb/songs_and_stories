@@ -6,7 +6,7 @@ import { ObjectId } from 'mongodb';
 const COLLECTION = 'categories';
 
 export const GET: RequestHandler = async ({ locals, cookies, params }: RequestEvent) => {
-	if (!locals.user) {
+	if (!locals.user || locals.user.role.name !== 'admin') {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -23,7 +23,7 @@ export const GET: RequestHandler = async ({ locals, cookies, params }: RequestEv
 };
 
 export const PATCH: RequestHandler = async ({ locals, request, cookies, params }: RequestEvent) => {
-	if (!locals.user) {
+	if (!locals.user || locals.user.role.name !== 'admin') {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -56,7 +56,7 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 };
 
 export const DELETE: RequestHandler = async ({ locals, cookies, params }: RequestEvent) => {
-	if (!locals.user) {
+	if (!locals.user || locals.user.role.name !== 'admin') {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {

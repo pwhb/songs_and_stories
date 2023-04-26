@@ -1,13 +1,12 @@
 import { MONGODB_DATABASE } from '$env/static/private';
 import clientPromise from '$lib/utils/mongodb';
-import { startCase } from '$lib/utils/formatters';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 
-const COLLECTION = 'songs';
+const COLLECTION = 'writings';
 
 export const GET: RequestHandler = async ({ locals, cookies, params }: RequestEvent) => {
-	if (!locals.user || locals.user.role.name !== 'admin') {
+	if (!locals.user) {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -24,7 +23,7 @@ export const GET: RequestHandler = async ({ locals, cookies, params }: RequestEv
 };
 
 export const PATCH: RequestHandler = async ({ locals, request, cookies, params }: RequestEvent) => {
-	if (!locals.user || locals.user.role.name !== 'admin') {
+	if (!locals.user) {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -36,6 +35,7 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 		const body = await request.json();
 		const update = {
 			...body,
+			finishedAt: body.finishedAt ? new Date(body.finishedAt) : new Date(),
 			updatedAt: new Date()
 		};
 
@@ -46,7 +46,9 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 			},
 			{ returnDocument: 'after' }
 		);
-
+		if (!res) {
+			return json({ success: false, error: { message: 'not found' } }, { status: 404 });
+		}
 		return json({ success: true, data: res.value }, { status: 201 });
 	} catch (err) {
 		console.error(err);
@@ -55,7 +57,7 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 };
 
 export const DELETE: RequestHandler = async ({ locals, cookies, params }: RequestEvent) => {
-	if (!locals.user || locals.user.role.name !== 'admin') {
+	if (!locals.user) {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {

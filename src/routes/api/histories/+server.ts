@@ -5,7 +5,7 @@ import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 const COLLECTION = 'histories';
 
 export const GET: RequestHandler = async ({ locals, url }: RequestEvent) => {
-	if (!locals.user) {
+	if (!locals.user || locals.user.role.name !== 'admin') {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {

@@ -1,12 +1,11 @@
 import clientPromise from '$lib/utils/mongodb';
 import { MONGODB_DATABASE } from '$env/static/private';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
-import { startCase } from '$lib/utils/formatters';
 
-const COLLECTION = 'categories';
+const COLLECTION = 'writings';
 
 export const GET: RequestHandler = async ({ locals, url }: RequestEvent) => {
-	if (!locals.user || locals.user.role.name !== 'admin') {
+	if (!locals.user) {
 		return json({ success: false, error: { message: 'Unauthorized' } }, { status: 401 });
 	}
 	try {
@@ -42,8 +41,9 @@ export const POST: RequestHandler = async ({ locals, request }: RequestEvent) =>
 			{
 				createdAt: new Date(),
 				updatedAt: new Date(),
-				active: !!body.active ? body.active : true,
-				...body
+				...body,
+				finishedAt: body.finishedAt ? new Date(body.finishedAt) : new Date(),
+				active: !!body.active ? body.active : true
 			},
 			{}
 		);
