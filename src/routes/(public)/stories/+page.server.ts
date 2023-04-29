@@ -1,21 +1,15 @@
-import type { PageServerLoad } from './$types';
 import { MONGODB_DATABASE } from '$env/static/private';
 import clientPromise from '$lib/utils/mongodb';
 import { serialize } from '$lib/utils/validate';
-import { ObjectId } from 'mongodb';
 
-export const load: PageServerLoad = async ({ params }) => {
-	const { id } = params;
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ locals }) => {
 	const client = await clientPromise;
 	const db = client.db(MONGODB_DATABASE);
-	const doc = await db
+	const writings = await db
 		.collection('writings')
 		.aggregate([
-			{
-				$match: {
-					_id: new ObjectId(id)
-				}
-			},
 			{
 				$lookup: {
 					from: 'users',
@@ -36,16 +30,15 @@ export const load: PageServerLoad = async ({ params }) => {
 					'author.password': 0,
 					'author.createdBy': 0,
 					'author.createdAt': 0,
-					'author.updatedAt': 0
+					'author.updatedAt': 0,
+					'author._id': 0
 				}
 			},
-			{ $limit: 1 }
+			{ $sort: { finishedAt: -1 } }
 		])
 		.toArray();
 
-	console.log('doc', doc);
-
 	return {
-		doc: serialize(doc[0])
+		writings: serialize(writings)
 	};
 };

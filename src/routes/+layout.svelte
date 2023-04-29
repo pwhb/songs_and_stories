@@ -4,6 +4,7 @@
 	import Footer from '$lib/components/layout/footer.svelte';
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import '../app.css';
+	import 'bytemd/dist/index.css';
 	import NavProgress from '$lib/components/common/navProgress.svelte';
 
 	const options = { classes: ['log'] };

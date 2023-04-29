@@ -35,8 +35,11 @@ export const PATCH: RequestHandler = async ({ locals, request, cookies, params }
 		const body = await request.json();
 		const update = {
 			...body,
+			author: body.author ? new ObjectId(body.author) : locals.user._id,
+			song: body.song ? new ObjectId(body.song) : '',
+			updatedAt: new Date(),
 			finishedAt: body.finishedAt ? new Date(body.finishedAt) : new Date(),
-			updatedAt: new Date()
+			active: !!body.active ? body.active : true
 		};
 
 		const res = await col.findOneAndUpdate(

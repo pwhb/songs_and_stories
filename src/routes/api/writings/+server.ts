@@ -1,6 +1,7 @@
 import clientPromise from '$lib/utils/mongodb';
 import { MONGODB_DATABASE } from '$env/static/private';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
+import { ObjectId } from 'mongodb';
 
 const COLLECTION = 'writings';
 
@@ -39,9 +40,11 @@ export const POST: RequestHandler = async ({ locals, request }: RequestEvent) =>
 		const body = await request.json();
 		const res = await col.insertOne(
 			{
+				...body,
+				author: body.author ? new ObjectId(body.author) : locals.user._id,
+				song: body.song ? new ObjectId(body.song) : '',
 				createdAt: new Date(),
 				updatedAt: new Date(),
-				...body,
 				finishedAt: body.finishedAt ? new Date(body.finishedAt) : new Date(),
 				active: !!body.active ? body.active : true
 			},

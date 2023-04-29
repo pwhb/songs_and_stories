@@ -13,7 +13,7 @@
 		loading = true;
 		const formData = new FormData();
 		formData.append('file', file);
-		const url = '/api/upload';
+		const url = '/api/uploads';
 		const res = await fetch(url, {
 			method: 'POST',
 			body: formData

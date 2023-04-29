@@ -1,5 +1,4 @@
 <script>
-	import { DateInput } from 'date-picker-svelte';
 	import SveltyPicker from 'svelty-picker';
 	export let name = '';
 	export let label = '';

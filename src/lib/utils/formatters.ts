@@ -47,6 +47,9 @@ export const checkIsAllowed = (role: any, path: string) => {
 };
 
 export const parseAccessDetails = (details: any) => {
+	if (!details) {
+		return '';
+	}
 	const arr = [];
 	for (let access of Object.keys(details)) {
 		arr.push(`${access} (${details[access]})`);
