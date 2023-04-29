@@ -7,7 +7,7 @@
 	import Select from '../common/select.svelte';
 	import { slugify } from '$lib/utils/formatters';
 
-	import { Editor } from 'bytemd';
+	import { Editor, Viewer } from 'bytemd';
 	import gfm from '@bytemd/plugin-gfm';
 	import DatePicker from '../common/datePicker.svelte';
 	import Dropzone from '../common/dropzone.svelte';
@@ -108,6 +108,7 @@
 				body = e.detail.value;
 			}}
 		/>
+		<Viewer value={body} />
 	</div>
 	<Toggle name="active" label="Active" bind:checked={active} />
 	<div class="form-control mt-6">

@@ -2,6 +2,7 @@
 	import FileDrop from 'filedrop-svelte';
 	import type { Files } from 'filedrop-svelte';
 	import LoadingSpinner from './loadingSpinner.svelte';
+	import { toast } from '@zerodevx/svelte-toast';
 	let files: Files;
 	export let label = 'Upload files';
 	export let loading = false;
@@ -30,10 +31,11 @@
 		if (file) {
 			const { success, data } = await handleUpload(file);
 			if (success) {
-			
 				urls = [...urls, data.Location];
-				
 
+				toast.push('Successfully Uploaded!', {
+					classes: ['info']
+				});
 				handleUpdateUrls(urls);
 			}
 		}
@@ -54,18 +56,3 @@
 		</FileDrop>
 	{/if}
 </div>
-
-<!-- {#if files}
-	<h3>Accepted files</h3>
-	<ul>
-		{#each files.accepted as file}
-			<li>{file.name}</li>
-		{/each}
-	</ul>
-	<h3>Rejected files</h3>
-	<ul>
-		{#each files.rejected as rejected}
-			<li>{rejected.file.name} - {rejected.error.message}</li>
-		{/each}
-	</ul>
-{/if} -->

@@ -8,7 +8,7 @@
 		<img class="w-12" src="https://www.svgrepo.com/show/499022/book.svg" alt="book.svg">
 		<p>{footer.title}<br />{footer.subtitle}</p>
 	</div>
-	<div>
+	<!-- <div>
 		<span class="footer-title">Social</span>
 		<div class="grid grid-flow-col gap-4">
 			<a
@@ -48,5 +48,5 @@
 				></a
 			>
 		</div>
-	</div>
+	</div> -->
 </footer>

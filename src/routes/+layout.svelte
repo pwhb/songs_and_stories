@@ -12,7 +12,7 @@
 
 <main data-theme="cupcake">
 	<Navbar />
-	<div class="mi min-h-[75vh]">
+	<div class="mi min-h-[75vh] py-10">
 		<slot />
 		{#if $page.data.privateConfig.debug}
 			<div class="max-w-6xl mx-auto my-20">
