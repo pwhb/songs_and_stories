@@ -18,18 +18,22 @@
 		<tr>
 			<th />
 			<th>Title</th>
-			<th>Created At</th>
+			<th>Finish Date</th>
 			<th>Updated At</th>
 			<th>Active</th>
 			<th> <a class="btn btn-primary btn-xs" href={`/bean-noodle/writings/create`}>Create</a></th>
 		</tr>
 	</thead>
 	<tbody>
-		{#each filteredResults as { _id, title, createdAt, updatedAt, active }, idx}
+		{#each filteredResults as { _id, title, slug, updatedAt, finishedAt, active }, idx}
 			<tr>
 				<th>{idx + 1}</th>
-				<td>{title}</td>
-				<td>{parseDate(createdAt)}</td>
+				<td>
+					<a href={`/stories/${slug}`}>
+						{title}
+					</a>
+				</td>
+				<td>{parseDate(finishedAt)}</td>
 				<td>{parseDate(updatedAt)}</td>
 				<td>
 					{#if active}

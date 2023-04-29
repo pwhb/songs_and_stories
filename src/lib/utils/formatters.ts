@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 export const slugify = (str: string) => {
-	const split = str.toLowerCase().split(' ');
+	const split = str.toLowerCase().replace('?', '').split(' ');
 	return split.join('-');
 };
 
@@ -57,4 +57,8 @@ export const parseAccessDetails = (details: any) => {
 	return arr.join(', ');
 };
 
-export const parseDate = (date: string) => dayjs(date).format('MMMM D, YYYY h:mm A');
+export const parseDate = (date: string) => dayjs(date).format('MMM D, YYYY h:mm A');
+
+export const parsePublicDate = (date: string) => dayjs(date).format('MMMM YYYY');
+
+export const getPreview = (body: string) => body.slice(0, 255) + ' ...';

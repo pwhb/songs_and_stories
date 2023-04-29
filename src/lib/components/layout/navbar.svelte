@@ -1,20 +1,23 @@
 <script>
 	import { page } from '$app/stores';
 	import { parseAvatarPlaceholder } from '$lib/utils/formatters';
+	import { search } from '$lib/utils/stores';
 	import AppName from './appName.svelte';
 
 	const { config, user } = $page.data;
 </script>
+
 
 <div class="px-10 navbar bg-base-100">
 	<div class="flex-1">
 		<AppName />
 	</div>
 	<div class="flex-none gap-2">
-		<div class="form-control">
-			<input type="text" placeholder="Search" class="input input-bordered" />
-		</div>
-
+		{#if $page.url.pathname === '/stories'}
+			<div class="form-control">
+				<input type="text" placeholder="Search" bind:value={$search} class="input input-bordered" />
+			</div>
+		{/if}
 		{#if user}
 			<div class="dropdown dropdown-end">
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
