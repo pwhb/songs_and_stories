@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import Meta from '$lib/components/layout/meta.svelte';
 	import { filterResults } from '$lib/utils/filter';
 	import { getPreview, parsePublicDate } from '$lib/utils/formatters';
 	import { search } from '$lib/utils/stores';
@@ -12,8 +13,18 @@
 	$: {
 		filteredResults = filterResults($search, docs, ['title', 'body']);
 	}
+	const metadata = {
+		title: 'stories',
+		description: 'hello friend, do you like stories?',
+		image: config.hero.img,
+		imageAlt: '',
+		url: '',
+		type: '',
+		twitterCard: ''
+	};
 </script>
 
+<Meta {metadata} />
 <div class="flex flex-col max-w-4xl mx-auto p-10 gap-10">
 	{#each filteredResults as { title, author, finishedAt, song, slug, body, titleImage }, idx}
 		<div class={idx % 2 == 0 ? 'flex justify-start' : 'flex justify-end'}>

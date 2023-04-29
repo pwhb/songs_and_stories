@@ -1,13 +1,22 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import MusicPlayer from '$lib/components/common/musicPlayer.svelte';
+	import Meta from '$lib/components/layout/meta.svelte';
 	import { parsePublicDate } from '$lib/utils/formatters';
 	import { marked } from 'marked';
 
-	const { doc } = $page.data;
+	const { doc, config } = $page.data;
 	const { title, author, finishedAt, song, slug, body, titleImage } = doc;
+	const metadata = {
+		...config.metadata.slug,
+		title: title,
+		description: body.slice(0, 255),
+		image: titleImage || config.stories.defaultTitleImg,
+		imageAlt: titleImage || config.stories.defaultTitleImg
+	};
 </script>
 
+<Meta {metadata} />
 <div class="max-w-4xl mx-auto">
 	<section class="p-10 md:text-xl">
 		<div class="mb-10 text-center">

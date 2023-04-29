@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import Meta from '$lib/components/layout/meta.svelte';
 
 	const { config } = $page.data;
+	const metadata = config.metadata.home;
 </script>
 
+<Meta {metadata} />
 <div class="hero min-h-screen" style={`background-image: url(${config.hero.img});`}>
 	<div class="hero-overlay bg-opacity-40" />
 	<div class="hero-content text-center text-neutral-content">
