@@ -4,11 +4,8 @@ import clientPromise from '$lib/utils/mongodb';
 import { serialize } from '$lib/utils/validate';
 
 export const load: PageServerLoad = async ({ locals, fetch }) => {
-	const client = await clientPromise;
-	const db = client.db(MONGODB_DATABASE);
 	const res = await fetch('/api/uploads');
 	const { data } = await res.json();
-	console.log('res', data);
 
 	return {
 		docs: data.Contents,

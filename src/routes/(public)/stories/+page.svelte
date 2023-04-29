@@ -8,7 +8,6 @@
 	const { docs, config } = $page.data;
 
 	let filteredResults: any = docs;
-	console.log('search', docs);
 
 	$: {
 		filteredResults = filterResults($search, docs, ['title', 'body']);

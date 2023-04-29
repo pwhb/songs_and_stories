@@ -38,7 +38,6 @@
 
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
-		console.log(create);
 
 		loading = true;
 		const url = create ? `/api/writings` : `/api/writings/${doc._id}`;
@@ -83,7 +82,7 @@
 		{#if titleImage}
 			<!-- svelte-ignore a11y-img-redundant-alt -->
 			<!-- <div class="max-auto"> -->
-				<img src={titleImage} class="h-64 mx-auto my-5 rounded-xl" alt="title image" />
+			<img src={titleImage} class="h-64 mx-auto my-5 rounded-xl" alt="title image" />
 			<!-- </div> -->
 		{/if}
 		<Dropzone label="upload title image" handleUpdateUrls={changeTitleImage} />
@@ -106,8 +105,6 @@
 			sanitize=""
 			placeholder="Once upon a time"
 			on:change={(e) => {
-				console.log(e);
-
 				body = e.detail.value;
 			}}
 		/>

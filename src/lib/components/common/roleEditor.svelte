@@ -30,12 +30,6 @@
 			value: 'all'
 		}
 	];
-	$: {
-		console.log('data', data, parseObjectFromArray(data));
-
-		details: parseObjectFromArray(data);
-	}
-	let newKey = '';
 </script>
 
 <div>

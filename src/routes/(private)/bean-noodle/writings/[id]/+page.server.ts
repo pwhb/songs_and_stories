@@ -43,8 +43,6 @@ export const load: PageServerLoad = async ({ params }) => {
 		])
 		.toArray();
 
-	console.log('doc', doc);
-
 	return {
 		doc: serialize(doc[0])
 	};

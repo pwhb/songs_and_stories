@@ -9,7 +9,7 @@
 	const { docs, bucketBaseUrl } = $page.data;
 	let search = '';
 	let filteredResults: any = docs;
-	console.log(docs);
+	
 
 	$: {
 		filteredResults = filterResults(search, docs, ['Key']);

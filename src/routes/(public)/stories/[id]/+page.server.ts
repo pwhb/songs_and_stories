@@ -62,7 +62,6 @@ export const load: PageServerLoad = async ({ params }) => {
 			{ $sort: { finishedAt: -1 } }
 		])
 		.toArray();
-	console.log('docs', docs);
 
 	return {
 		doc: serialize(docs[0])
