@@ -61,4 +61,6 @@ export const parseDate = (date: string) => dayjs(date).format('MMM D, YYYY h:mm 
 
 export const parsePublicDate = (date: string) => dayjs(date).format('MMMM YYYY');
 
+export const parseFinishedDate = (date: string) => dayjs(date).format('MMMM DD, YYYY');
+
 export const getPreview = (body: string) => body.slice(0, 255) + ' ...';

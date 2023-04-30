@@ -5,9 +5,10 @@
 	import Toggle from '$lib/components/common/toggle.svelte';
 	import { page } from '$app/stores';
 	import Select from '../common/select.svelte';
-	import { slugify } from '$lib/utils/formatters';
+	import { parseFinishedDate, slugify } from '$lib/utils/formatters';
 
 	import { Editor, Viewer } from 'bytemd';
+
 	import gfm from '@bytemd/plugin-gfm';
 	import DatePicker from '../common/datePicker.svelte';
 	import Dropzone from '../common/dropzone.svelte';
@@ -29,7 +30,8 @@
 		gfm()
 		// Add more plugins here
 	];
-	let { author, title, active, category, song, finishedAt, body, titleImage } = doc;
+	let { author, title, active, category, song, body, titleImage } = doc;
+	let finishedAt = parseFinishedDate(doc.finishedAt);
 	let loading = false;
 
 	const changeTitleImage = (urls: any) => {
@@ -41,6 +43,7 @@
 
 		loading = true;
 		const url = create ? `/api/writings` : `/api/writings/${doc._id}`;
+
 		const options = {
 			method: create ? 'POST' : 'PATCH',
 			body: JSON.stringify({
@@ -48,7 +51,7 @@
 				active,
 				category,
 				song,
-				finishedAt: new Date(finishedAt),
+				finishedAt,
 				author: author._id,
 				slug: slugify(title),
 				body,
@@ -102,13 +105,13 @@
 		<Editor
 			value={body}
 			{plugins}
-			sanitize=""
+			mode="tab"
 			placeholder="Once upon a time"
 			on:change={(e) => {
 				body = e.detail.value;
 			}}
 		/>
-		<Viewer value={body} />
+		<!-- <Viewer value={body} /> -->
 	</div>
 	<Toggle name="active" label="Active" bind:checked={active} />
 	<div class="form-control mt-6">
