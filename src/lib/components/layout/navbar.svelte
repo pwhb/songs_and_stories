@@ -8,7 +8,7 @@
 </script>
 
 
-<div class="px-10 navbar bg-base-100">
+<div class="px-10 navbar bg-base-200 shadow-md">
 	<div class="flex-1">
 		<AppName />
 	</div>

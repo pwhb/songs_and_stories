@@ -11,6 +11,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.collection('writings')
 		.aggregate([
 			{
+				$match: {
+					active: true
+				}
+			},
+			{
 				$lookup: {
 					from: 'users',
 					localField: 'author',

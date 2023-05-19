@@ -105,7 +105,7 @@
 		<Editor
 			value={body}
 			{plugins}
-			mode="tab"
+
 			placeholder="Once upon a time"
 			on:change={(e) => {
 				body = e.detail.value;
