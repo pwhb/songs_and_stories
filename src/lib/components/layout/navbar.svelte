@@ -7,8 +7,7 @@
 	const { config, user } = $page.data;
 </script>
 
-
-<div class="px-10 navbar bg-base-100">
+<div class="px-10 shadow-md navbar bg-base-100">
 	<div class="flex-1">
 		<AppName />
 	</div>
@@ -31,7 +30,7 @@
 						</div>
 					{:else}
 						<div class="avatar placeholder">
-							<div class="bg-neutral-focus text-neutral-content rounded-full w-10">
+							<div class="w-10 rounded-full bg-neutral-focus text-neutral-content">
 								<span class="text-sm">{parseAvatarPlaceholder(user)}</span>
 							</div>
 						</div>
@@ -40,7 +39,7 @@
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<ul
 					tabindex="0"
-					class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+					class="p-2 mt-3 w-52 shadow menu menu-compact dropdown-content bg-base-100 rounded-box"
 				>
 					{#if user}
 						<li>

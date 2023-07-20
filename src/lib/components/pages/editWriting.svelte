@@ -5,7 +5,7 @@
 	import Toggle from '$lib/components/common/toggle.svelte';
 	import { page } from '$app/stores';
 	import Select from '../common/select.svelte';
-	import { parseFinishedDate, slugify } from '$lib/utils/formatters';
+	import { getUrl, parseFinishedDate, slugify } from '$lib/utils/formatters';
 
 	import { Editor, Viewer } from 'bytemd';
 
@@ -34,8 +34,8 @@
 	let finishedAt = parseFinishedDate(doc.finishedAt);
 	let loading = false;
 
-	const changeTitleImage = (urls: any) => {
-		titleImage = urls[0];
+	const changeTitleImage = (data: any) => {
+		titleImage = getUrl(data.insertedId);
 	};
 
 	const handleSubmit = async (e: Event) => {
@@ -85,10 +85,10 @@
 		{#if titleImage}
 			<!-- svelte-ignore a11y-img-redundant-alt -->
 			<!-- <div class="max-auto"> -->
-			<img src={titleImage} class="h-64 mx-auto my-5 rounded-xl" alt="title image" />
+			<img src={titleImage} class="mx-auto my-5 h-64 rounded-xl" alt="title image" />
 			<!-- </div> -->
 		{/if}
-		<Dropzone label="upload title image" handleUpdateUrls={changeTitleImage} />
+		<Dropzone label="upload title image" callback={changeTitleImage} />
 		<Input
 			name="titleImage"
 			label="Title Image URL"
@@ -114,7 +114,7 @@
 		<!-- <Viewer value={body} /> -->
 	</div>
 	<Toggle name="active" label="Active" bind:checked={active} />
-	<div class="form-control mt-6">
+	<div class="mt-6 form-control">
 		<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>
 	</div>
 </form>

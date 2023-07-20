@@ -6,6 +6,7 @@
 	import Toggle from '$lib/components/common/toggle.svelte';
 	import MusicPlayer from '$lib/components/common/musicPlayer.svelte';
 	import Dropzone from '../common/dropzone.svelte';
+	import { getUrl } from '$lib/utils/formatters';
 
 	export let doc: any = {
 		src: '',
@@ -20,12 +21,12 @@
 	let loading = false;
 	let { src, title, artist, youtube, active, thumbnail } = doc;
 
-	const changeSongSrc = (urls: any) => {
-		src = urls[0];
+	const changeSongSrc = (data: any) => {
+		src = getUrl(data.insertedId);
 	};
 
-	const changeThumbnail = (urls: any) => {
-		thumbnail = urls[0];
+	const changeThumbnail = (data: any) => {
+		thumbnail = getUrl(data.insertedId);
 	};
 
 	const handleSubmit = async (e: Event) => {
@@ -58,7 +59,7 @@
 	<Input name="artist" label="Artist" placeholder="Frank Sinatra" bind:value={artist} />
 
 	<div class="m-10">
-		<Dropzone label="upload song" handleUpdateUrls={changeSongSrc} />
+		<Dropzone label="upload song" callback={changeSongSrc} />
 	</div>
 	<Input
 		disabled={true}
@@ -68,7 +69,7 @@
 		bind:value={src}
 	/>
 	<div class="m-10">
-		<Dropzone label="upload thumbnail" handleUpdateUrls={changeThumbnail} />
+		<Dropzone label="upload thumbnail" callback={changeThumbnail} />
 	</div>
 	<Input
 		disabled={true}
@@ -84,7 +85,7 @@
 		bind:value={youtube}
 	/>
 	<Toggle name="active" label="Active" bind:checked={active} />
-	<div class="form-control mt-6">
+	<div class="mt-6 form-control">
 		<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>
 	</div>
 </form>

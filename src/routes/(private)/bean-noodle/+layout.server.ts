@@ -11,6 +11,9 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
 
 	const isAllowed = checkIsAllowed(locals.user.role, path);
 
+	console.log({path, isAllowed, role: locals.user.role});
+	
+
 	if (!isAllowed) {
 		throw redirect(307, '/bean-noodle');
 	}

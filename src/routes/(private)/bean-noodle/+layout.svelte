@@ -10,11 +10,13 @@
 	const { user } = $page.data;
 </script>
 
-<div class="flex overflow-hidden px-10 gap-5">
+<div class="flex overflow-hidden gap-5 p-3 lg:p-10">
 	{#if hide}
-		<SidebarToggle bind:hide />
+		<div class="fixed z-10">
+			<SidebarToggle bind:hide />
+		</div>
 	{:else}
-		<div class=" left-64 top-18 z-10 absolute">
+		<div class="fixed z-10">
 			<SidebarToggle bind:hide />
 		</div>
 
@@ -22,8 +24,8 @@
 	{/if}
 	{#if hide}
 		<!-- Content -->
-		<div class="flex flex-col w-full overflow-y-auto">
-			<div class="card w-full mx-auto shadow-2xl bg-base-300">
+		<div class="flex overflow-y-auto flex-col w-full">
+			<div class="mx-auto w-full shadow-2xl card bg-base-300">
 				<Breadcrumbs />
 				<div class="card-body">
 					<slot />
@@ -32,8 +34,8 @@
 		</div>
 	{:else}
 		<!-- Content -->
-		<div class="flex flex-col w-full overflow-y-auto">
-			<div class="card w-full max-w-7xl mx-auto shadow-2xl bg-base-300">
+		<div class="flex overflow-y-auto flex-col w-full">
+			<div class="mx-auto w-full max-w-7xl shadow-2xl card bg-base-300">
 				<Breadcrumbs />
 				<div class="card-body">
 					<slot />

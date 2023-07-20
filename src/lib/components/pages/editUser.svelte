@@ -5,6 +5,7 @@
 	import Select from '../common/select.svelte';
 	import { goto, invalidateAll } from '$app/navigation';
 	import PasswordInput from '../common/passwordInput.svelte';
+	import { getUrl } from '$lib/utils/formatters';
 	export let doc: any = {
 		firstName: '',
 		lastName: '',
@@ -22,8 +23,8 @@
 		return { label: v, value: v };
 	});
 
-	const changeAvatar = (urls: any) => {
-		avatar = urls[0];
+	const changeAvatar = (data: any) => {
+		avatar = getUrl(data.insertedId);
 	};
 
 	let { firstName, lastName, username, penName, avatar, role } = doc;
@@ -53,7 +54,7 @@
 </script>
 
 <form action="" on:submit={handleSubmit}>
-	<div class="text-center mb-10">
+	<div class="mb-10 text-center">
 		{#if avatar}
 			<div class="avatar">
 				<div class="w-24 rounded-full">
@@ -62,14 +63,14 @@
 			</div>
 		{:else}
 			<div class="avatar placeholder">
-				<div class="bg-neutral-focus text-neutral-content rounded-full w-24">
+				<div class="w-24 rounded-full bg-neutral-focus text-neutral-content">
 					<span class="text-2xl">{firstName && lastName ? firstName[0] + lastName[0] : ''}</span>
 				</div>
 			</div>
 		{/if}
 	</div>
 	<div class="m-10">
-		<Dropzone label="upload avatar" handleUpdateUrls={changeAvatar} />
+		<Dropzone label="upload avatar" callback={changeAvatar} />
 	</div>
 	<div class="grid grid-cols-2 gap-4">
 		<Input name="firstName" label="First Name" placeholder="Anakin" bind:value={firstName} />
@@ -91,7 +92,7 @@
 	{#if create}
 		<PasswordInput name="password" label="Password" bind:value={password} />
 	{/if}
-	<div class="form-control mt-6">
+	<div class="mt-6 form-control">
 		<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>
 	</div>
 </form>

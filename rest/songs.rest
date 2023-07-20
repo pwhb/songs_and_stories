@@ -1,9 +1,9 @@
 @prod = 
 @dev =
-@local = http://[::1]:5173
+@local = http://localhost:5173
 
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjgyMTY2MzI5LCJleHAiOjE2ODIxNjk5Mjl9.GN4yha02TJ1HgHVZzA8scuykYF98pJDOFjprfkWkH5A
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjg5ODI4NzQ4LCJleHAiOjE2ODk4MzIzNDh9.Xi2afBuhD0qyPefxLa23WVXb6J3q9rgvlF0ThhbEaa8
 
 ###
 POST {{local}}/api/auth/login
