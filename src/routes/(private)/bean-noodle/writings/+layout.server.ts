@@ -3,7 +3,8 @@ import { MONGODB_DATABASE } from '$env/static/private';
 import clientPromise from '$lib/utils/mongodb';
 import { serialize } from '$lib/utils/validate';
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load: LayoutServerLoad = async ({ locals }) =>
+{
 	const client = await clientPromise;
 	const db = client.db(MONGODB_DATABASE);
 	const categories = await db
@@ -23,7 +24,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		.aggregate([
 			{
 				$addFields: {
-					label: '$title',
+					label: { $concat: ['$title', ' - ', '$artist'] },
 					value: '$_id'
 				}
 			},

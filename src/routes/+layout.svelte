@@ -15,7 +15,7 @@
 	<div class="mi min-h-[75vh]">
 		<slot />
 		{#if $page.data.privateConfig.debug}
-			<div class="max-w-6xl mx-auto my-20">
+			<div class="mx-auto my-20 max-w-6xl">
 				<p>{JSON.stringify($page.data)}</p>
 			</div>
 		{/if}

@@ -3,9 +3,9 @@
 	const { footer } = $page.data.config;
 </script>
 
-<footer class="footer p-10 bg-base-200 text-base-content">
+<footer class="p-10 shadow-md footer bg-base-200 text-base-content">
 	<div>
-		<img class="w-12" src="https://www.svgrepo.com/show/499022/book.svg" alt="book.svg">
+		<img class="w-12" src="https://www.svgrepo.com/show/499022/book.svg" alt="book.svg" />
 		<p>{footer.title}<br />{footer.subtitle}</p>
 	</div>
 	<!-- <div>

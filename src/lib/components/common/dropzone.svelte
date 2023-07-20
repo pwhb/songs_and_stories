@@ -7,9 +7,7 @@
 	export let label = 'Upload files';
 	export let loading = false;
 
-	export let handleUpdateUrls = (urls: any) => {};
-
-	let urls: any = [];
+	export let callback = (data: any) => {};
 	const handleUpload = async (file: any) => {
 		loading = true;
 		const formData = new FormData();
@@ -31,24 +29,22 @@
 		if (file) {
 			const { success, data } = await handleUpload(file);
 			if (success) {
-				urls = [...urls, data.Location];
-
 				toast.push('Successfully Uploaded!', {
 					classes: ['info']
 				});
-				handleUpdateUrls(urls);
+				callback(data);
 			}
 		}
 	};
 </script>
 
-<div class="max-w-xs mx-auto">
+<div class="mx-auto max-w-xs">
 	{#if loading}
 		<LoadingSpinner />
 	{:else}
 		<FileDrop on:filedrop={handleDrop}>
-			<div class="p-5 border-2 border-dashed border-primary shadow-md rounded-xl bg-base-500">
-				<div class="flex flex-col items-center gap-5">
+			<div class="p-5 rounded-xl border-2 border-dashed shadow-md border-primary bg-base-500">
+				<div class="flex flex-col gap-5 items-center">
 					<img src="https://www.svgrepo.com/show/449957/upload.svg" class="w-10" alt="" />
 					<span class="font-light text-gray-400">{label}</span>
 				</div>

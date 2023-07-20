@@ -1,6 +1,6 @@
 @prod = 
 @dev =
-@local = http://[::1]:5173
+@local = http://localhost:5173
 
 @pwh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicHdoIiwicm9sZSI6ImF1dGhvciJ9LCJpYXQiOjE2ODE5ODM2NTMsImV4cCI6MTY4MTk4NzI1M30.c7X1w37pO3z9QCtiWQjhOOA2_iVCnIpFyabnUWt6oeo
 
