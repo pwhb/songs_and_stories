@@ -7,13 +7,13 @@
 	const { config, user } = $page.data;
 </script>
 
-<div class="px-10 shadow-md navbar bg-base-100">
+<div class="shadow-md md:px-10 navbar bg-base-100">
 	<div class="flex-1">
 		<AppName />
 	</div>
 	<div class="flex-none gap-2">
 		{#if $page.url.pathname === '/stories'}
-			<div class="form-control">
+			<div class="w-48 md:w-auto form-control">
 				<input type="text" placeholder="Search" bind:value={$search} class="input input-bordered" />
 			</div>
 		{/if}

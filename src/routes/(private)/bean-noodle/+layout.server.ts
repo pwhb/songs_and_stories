@@ -2,8 +2,10 @@ import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 import { checkIsAllowed } from '$lib/utils/formatters';
 
-export const load: LayoutServerLoad = async ({ locals, url }) => {
-	if (!locals.user) {
+export const load: LayoutServerLoad = async ({ locals, url }) =>
+{
+	if (!locals.user)
+	{
 		throw redirect(307, '/auth/login');
 	}
 
@@ -11,10 +13,9 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
 
 	const isAllowed = checkIsAllowed(locals.user.role, path);
 
-	console.log({path, isAllowed, role: locals.user.role});
-	
 
-	if (!isAllowed) {
+	if (!isAllowed)
+	{
 		throw redirect(307, '/bean-noodle');
 	}
 

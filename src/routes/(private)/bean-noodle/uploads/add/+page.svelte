@@ -7,8 +7,6 @@
 	let ContentType = '';
 	let size = 0;
 	const callback = async (data: any) => {
-		console.log(data);
-
 		if (data.insertedId) {
 			url = getUrl(data.insertedId);
 			ContentType = data.ContentType;

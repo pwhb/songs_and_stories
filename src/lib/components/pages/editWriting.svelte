@@ -12,6 +12,7 @@
 	import gfm from '@bytemd/plugin-gfm';
 	import DatePicker from '../common/datePicker.svelte';
 	import Dropzone from '../common/dropzone.svelte';
+	import MarkdownEditor from '../common/markdownEditor.svelte';
 
 	const { categories, songs, user } = $page.data;
 
@@ -20,18 +21,20 @@
 		active: true,
 		category: categories[0].value,
 		song: songs[0].value,
-		finishedAt: 'September 23, 2000',
 		body: '',
 		titleImage: '',
 		author: user
 	};
+
+	console.log('doc', doc);
+
 	export let create = false;
 	const plugins = [
 		gfm()
 		// Add more plugins here
 	];
 	let { author, title, active, category, song, body, titleImage } = doc;
-	let finishedAt = parseFinishedDate(doc.finishedAt);
+	let finishedAt = create ? 'September 23, 2000' : parseFinishedDate(doc.finishedAt);
 	let loading = false;
 
 	const changeTitleImage = (data: any) => {
@@ -51,7 +54,7 @@
 				active,
 				category,
 				song,
-				finishedAt,
+				// finishedAt,
 				author: author._id,
 				slug: slugify(title),
 				body,
@@ -84,9 +87,9 @@
 	<div class="m-10">
 		{#if titleImage}
 			<!-- svelte-ignore a11y-img-redundant-alt -->
-			<!-- <div class="max-auto"> -->
-			<img src={titleImage} class="mx-auto my-5 h-64 rounded-xl" alt="title image" />
-			<!-- </div> -->
+			<div class="max-auto">
+				<img src={titleImage} class="mx-auto my-5 h-64 rounded-xl" alt="title image" />
+			</div>
 		{/if}
 		<Dropzone label="upload title image" callback={changeTitleImage} />
 		<Input
@@ -101,18 +104,23 @@
 	<Select name="category" label="Category" options={categories} bind:value={category} />
 	<Select name="song" label="Song" options={songs} bind:value={song} />
 	<DatePicker name="finishedAt" label="Finish Date" bind:value={finishedAt} />
-	<div class="my-10">
+	<!-- <div class="my-10">
 		<Editor
 			value={body}
 			{plugins}
-
+<<<<<<< Updated upstream
+			mode="tab"
 			placeholder="Once upon a time"
+=======
+>>>>>>> Stashed changes
 			on:change={(e) => {
 				body = e.detail.value;
 			}}
-		/>
-		<!-- <Viewer value={body} /> -->
-	</div>
+			placeholder="Once upon a time"
+		/> -->
+	<!-- <Viewer value={body} /> -->
+	<!-- </div> -->
+	<MarkdownEditor name="body" label="Body" placeholder="" bind:value={body} />
 	<Toggle name="active" label="Active" bind:checked={active} />
 	<div class="mt-6 form-control">
 		<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>

@@ -8,7 +8,7 @@
 	let filteredResults: any = docs;
 
 	$: {
-		filteredResults = filterResults(search, docs, ['name']);
+		filteredResults = filterResults(search, docs, ['name', 'category']);
 	}
 </script>
 
@@ -18,6 +18,7 @@
 		<tr>
 			<th />
 			<th>Title</th>
+			<th>Category</th>
 			<th>Finish Date</th>
 			<th>Updated At</th>
 			<th>Active</th>
@@ -25,13 +26,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each filteredResults as { _id, title, slug, updatedAt, finishedAt, active }, idx}
+		{#each filteredResults as { _id, title, slug, category, updatedAt, finishedAt, active }, idx}
 			<tr>
 				<th>{idx + 1}</th>
 				<td>
 					<a href={`/stories/${slug}`}>
 						{title}
 					</a>
+				</td>
+				<td>
+					<span class="badge badge-accent">{category}</span>
 				</td>
 				<td>{parseDate(finishedAt)}</td>
 				<td>{parseDate(updatedAt)}</td>
