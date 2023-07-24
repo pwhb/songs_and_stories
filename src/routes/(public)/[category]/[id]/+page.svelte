@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import MusicPlayer from '$lib/components/common/musicPlayer.svelte';
 	import Meta from '$lib/components/layout/meta.svelte';
+	import NavButtons from '$lib/components/layout/navButtons.svelte';
 	import { parsePublicDate } from '$lib/utils/formatters';
 	import { marked } from 'marked';
 
@@ -17,10 +18,10 @@
 </script>
 
 <Meta {metadata} />
-<div class="max-w-4xl mx-auto">
+<div class="mx-auto max-w-4xl">
 	<section class="p-10 md:text-xl">
 		<div class="mb-10 text-center">
-			<h1 class="text-primary font-bold text-2xl mb-10">{title}</h1>
+			<h1 class="mb-10 text-2xl font-bold text-primary">{title}</h1>
 			<div class="flex flex-row gap-3 justify-center">
 				<div class="badge badge-primary">
 					{author.penName}
@@ -32,7 +33,7 @@
 		</div>
 		{#if titleImage}
 			<img
-				class="mb-10 rounded-md p-1 h-96 bg-slate-200 mx-auto shadow-md"
+				class="p-1 mx-auto mb-10 h-96 rounded-md shadow-md bg-slate-200"
 				src={titleImage}
 				alt={`image for ${title}`}
 			/>
@@ -48,7 +49,9 @@
 				/>
 			</div>
 		{/if}
-
+		<div class="divider" />u
 		{@html marked(body).replace(/\n/g, '<br>')}
+		<div class="divider" />
+		<NavButtons />
 	</section>
 </div>

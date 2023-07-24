@@ -37,8 +37,10 @@ export const load: LayoutServerLoad = async ({ locals }) =>
 			}
 		])
 		.toArray();
+
+
 	return {
 		categories: categories,
-		songs: serialize(songs)
+		songs: [{ label: "none", value: "" }, ...serialize(songs)]
 	};
 };
