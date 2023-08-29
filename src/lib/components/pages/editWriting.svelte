@@ -52,7 +52,7 @@
 				active,
 				category,
 				song,
-				// finishedAt,
+				finishedAt,
 				author: author._id,
 				slug: slugify(title),
 				body,
