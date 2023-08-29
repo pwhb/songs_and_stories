@@ -26,8 +26,6 @@
 		author: user
 	};
 
-	console.log('doc', doc);
-
 	export let create = false;
 	const plugins = [
 		gfm()
@@ -104,22 +102,7 @@
 	<Select name="category" label="Category" options={categories} bind:value={category} />
 	<Select name="song" label="Song" options={songs} bind:value={song} />
 	<DatePicker name="finishedAt" label="Finish Date" bind:value={finishedAt} />
-	<!-- <div class="my-10">
-		<Editor
-			value={body}
-			{plugins}
-<<<<<<< Updated upstream
-			mode="tab"
-			placeholder="Once upon a time"
-=======
->>>>>>> Stashed changes
-			on:change={(e) => {
-				body = e.detail.value;
-			}}
-			placeholder="Once upon a time"
-		/> -->
-	<!-- <Viewer value={body} /> -->
-	<!-- </div> -->
+
 	<MarkdownEditor name="body" label="Body" placeholder="" bind:value={body} />
 	<Toggle name="active" label="Active" bind:checked={active} />
 	<div class="mt-6 form-control">
