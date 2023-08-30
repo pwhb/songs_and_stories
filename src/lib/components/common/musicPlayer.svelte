@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { audioStore } from '$lib/utils/stores';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { onMount, onDestroy } from 'svelte';
@@ -15,8 +15,11 @@
 	const pauseIcon = 'https://www.svgrepo.com/show/499769/pause.svg';
 
 	let isPlaying = false;
+	let audio: HTMLAudioElement;
 
-	const audio = new Audio(src);
+	onMount(() => {
+		audio = new Audio(src);
+	});
 
 	const toggleMusic = () => {
 		isPlaying = !isPlaying;
@@ -28,17 +31,19 @@
 	};
 
 	onDestroy(() => {
-		audio.src = '';
-		if (isPlaying) {
-			toast.push('Music stopped.', {
-				classes: ['warn']
-			});
+		if (audio) {
+			audio.src = '';
+			if (isPlaying) {
+				toast.push('Music stopped.', {
+					classes: ['warn']
+				});
+			}
 		}
 	});
 </script>
 
-<div class="card card-side max-w-md mx-auto bg-base-100 shadow-xl p-5">
-	<div class="card w-full flex flex-row gap-6 mx-2">
+<div class="p-5 mx-auto max-w-md shadow-xl card card-side bg-base-100">
+	<div class="flex flex-row gap-6 mx-2 w-full card">
 		<div class="flex">
 			<img
 				class={isPlaying

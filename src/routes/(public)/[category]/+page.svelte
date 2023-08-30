@@ -41,7 +41,7 @@
 				</figure>
 				<div class="max-w-lg sm:max-w-xl card-body">
 					<h2 class="card-title">{title}</h2>
-					<div class="flex flex-row gap-3 w-48">
+					<div class="flex flex-row gap-3">
 						<div class="badge badge-primary">
 							{author.penName}
 						</div>
