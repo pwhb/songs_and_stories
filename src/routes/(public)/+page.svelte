@@ -5,6 +5,9 @@
 
 	const { config } = $page.data;
 	const metadata = config.metadata.home;
+	const now = new Date();
+	console.log('hellooooooo');
+	console.log('time', now);
 </script>
 
 <Meta {metadata} />
