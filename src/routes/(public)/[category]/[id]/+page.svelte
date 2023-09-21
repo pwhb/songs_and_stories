@@ -19,7 +19,7 @@
 
 <Meta {metadata} />
 <div class="mx-auto max-w-4xl">
-	<section class="p-2 md:p-10 md:text-xl">
+	<section class="p-4 md:p-10 md:text-xl">
 		<div class="mb-10 text-center">
 			<h1 class="mb-10 text-2xl font-bold text-primary">{title}</h1>
 			<div class="flex flex-row gap-3 justify-center">
