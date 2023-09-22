@@ -11,6 +11,15 @@
 	const isBirthday =
 		now.getDate() === config.nwh_bd.date && now.getMonth() + 1 === config.nwh_bd.month;
 
+	console.log({
+		now,
+		'now.getDate()': now.getDate(),
+		'now.getMonth()': now.getMonth(),
+		'config.nwh_bd.date': config.nwh_bd.date,
+		'config.nwh_bd.month': config.nwh_bd.month,
+		isBirthday
+	});
+
 	const metadata = isBirthday ? config.metadata.hbd_nwh : config.metadata.home;
 </script>
 
