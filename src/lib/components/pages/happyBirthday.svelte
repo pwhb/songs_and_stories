@@ -35,7 +35,6 @@
 	$:{
 		img = images[idx]
 		console.log("img", img);
-		
 	}
 
 </script>
