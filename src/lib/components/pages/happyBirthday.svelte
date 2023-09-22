@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { split } from 'postcss/lib/list';
-	import Curve from '../common/curve.svelte';
-
+	import { Confetti } from "svelte-confetti"
 	// 0 1 2 3
 	const age = new Date().getFullYear() - 2000;
 	const nthNumber = (n: number) => {
@@ -17,41 +15,61 @@
 				return 'th';
 		}
 	};
-	const birthday = `Happy ${age}${nthNumber(age)} Birthday`;
-	const getDegree = (idx: number, length: number) => {
-		let mid;
-		if (length % 2 == 0) {
-			mid = length / 2;
+	let idx = 0
+	const images = [
+		"https://songsandstories.vercel.app/api/uploads/650d5244980c567ee83ca6ac",
+		"https://songsandstories.vercel.app/api/uploads/650d530f08f2f67a46886e7e"
+	]
+
+	let img = images[idx]
+
+	
+	const onClick = () => {
+		if (idx < images.length -1) {
+			idx += 1
+		} else {
+			idx = 0
 		}
-	};
+	}
+
+	$:{
+		img = images[idx]
+		console.log("img", img);
+		
+	}
+
 </script>
 
-<link href="https://fonts.cdnfonts.com/css/birthday-2" rel="stylesheet" />
-<div class="grid place-items-center min-h-[75vh] birthday-container">
-	<div class="m-5 text-center">
-		<div>
-			{#each Array.from({ length: age }) as _, idx}
-				<img
-					src="https://www.svgrepo.com/show/395971/candle.svg"
-					class={`inline-block w-8 waviy rotate delay-${idx % 5}`}
-					alt="candle"
-				/>
-			{/each}
-		</div>
-		<div class="text-6xl waviy">
-			<p class="font-black text-pink-600">Happy {age}{nthNumber(age)} Birthday</p>
+<svelte:head>
+    {#each images as image}
+      <link rel="preload" as="image" href={image} />
+    {/each}
+</svelte:head>
 
-			<p class="font-black text-teal-600">Nilar Win Htut</p>
-		</div>
+<link href="https://fonts.cdnfonts.com/css/birthday-2" rel="stylesheet" />
+<div class="grid place-items-center birthday-container">
+	<div class="my-10 text-center">
+		{#each Array.from({ length: age }) as _, idx}
+		<img
+		src="https://www.svgrepo.com/show/395971/candle.svg"
+		class={`inline-block w-12 waviy rotate delay-${idx % 5}`}
+		alt="candle"
+		/>
+		{/each}
 	</div>
+	<Confetti infinite cone amount={200} xSpread={0.00001} fallDistance={"300px"} />
+	<div class="text-6xl text-center font-birthday">
+		<p class="font-black text-pink-600 waviy">Happy {age}{nthNumber(age)} Birthday</p>
+		<button on:click={onClick} class="block p-5 mx-auto bg-teal-50 rounded-lg shadow-lg transition-opacity">
+			<img src={img} alt="birthday girl" class="h-96" >
+		</button>
+		
+			<p class="font-black text-teal-600 waviy">Nilar Win Htut</p>
+		</div>
 </div>
 
 <style>
-	.birthday-container {
-		background-image: url('cat_paws.jpg');
-		background-size: cover;
-	}
-	.hbd {
+	.font-birthday {
 		font-family: 'Birthday';
 	}
 	.waviy {

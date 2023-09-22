@@ -4,10 +4,5 @@ export default {
 	theme: {
 		extend: {}
 	},
-	plugins: [require('daisyui')],
-	safelist: [
-		{
-			pattern: /rotate-\[[1-8][0-9]deg\]/,
-		},
-	],
+	plugins: [require('daisyui')]
 };
