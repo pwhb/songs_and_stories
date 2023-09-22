@@ -1,25 +1,23 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Meta from '$lib/components/layout/meta.svelte';
-	import NavButtons from '$lib/components/layout/navButtons.svelte';
+	import HappyBirthday from '$lib/components/pages/happyBirthday.svelte';
+	import Home from '$lib/components/pages/home.svelte';
 
 	const { config } = $page.data;
-	const metadata = config.metadata.home;
+
 	const now = new Date();
-	console.log('hellooooooo');
-	console.log('time', now);
+
+	const isBirthday =
+		now.getDate() === config.nwh_bd.date && now.getMonth() + 1 === config.nwh_bd.month;
+
+	const metadata = isBirthday ? config.metadata.hbd_nwh : config.metadata.home;
 </script>
 
 <Meta {metadata} />
-<div class="min-h-[75vh] hero" style={`background-image: url(${config.hero.img});`}>
-	<div class="bg-opacity-40 hero-overlay" />
-	<div class="text-center hero-content text-neutral-content">
-		<div class="max-w-md">
-			<h1 class="mb-5 text-5xl font-bold">{config.hero.title}</h1>
-			<p class="mb-5 max-w-xs text-2xl text-primary">
-				{config.hero.txt}
-			</p>
-			<NavButtons />
-		</div>
-	</div>
-</div>
+
+{#if isBirthday}
+	<HappyBirthday />
+{:else}
+	<Home />
+{/if}

@@ -1,4 +1,5 @@
-<div class="text-center">
-	<p>Happy Birthday</p>
-	<p>Nilar Win Htut</p>
-</div>
+<script>
+	import HappyBirthday from '$lib/components/pages/happyBirthday.svelte';
+</script>
+
+<HappyBirthday />
