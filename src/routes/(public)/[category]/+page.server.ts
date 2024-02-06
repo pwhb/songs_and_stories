@@ -11,16 +11,17 @@ export const load: PageServerLoad = async ({ locals, params }) =>
 	const db = client.db(MONGODB_DATABASE);
 	const match: any = {
 		active: true,
+		category
 	};
 
 
-	if (category === "stories")
-	{
-		match["category"] = "fiction";
-	} else if (category === "not-stories")
-	{
-		match["category"] = "non-fiction";
-	}
+	// if (category === "stories")
+	// {
+	// 	match["category"] = "fiction";
+	// } else if (category === "not-stories")
+	// {
+	// 	match["category"] = "non-fiction";
+	// }
 	const docs = await db
 		.collection('writings')
 		.aggregate([

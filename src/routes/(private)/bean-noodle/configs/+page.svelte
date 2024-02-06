@@ -25,7 +25,12 @@
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
 		loading = true;
-		const payload = JSON.parse(content.text as any);
+
+		console.log({ content });
+
+		const payload = Object.keys(content.json).length
+			? content.json
+			: JSON.parse(content.text as any);
 		const url = `/api/configs/${payload.name}`;
 		const options = {
 			method: 'PATCH',
@@ -48,10 +53,10 @@
 	};
 </script>
 
-<!-- <p class="text-3xl font-medium text-primary mb-10">Edit Config</p> -->
+<!-- <p class="mb-10 text-3xl font-medium text-primary">Edit Config</p> -->
 <div class="">
-	<div class="text-center mb-5">
-		<select class="select select-primary w-full max-w-xs" bind:value={selected}>
+	<div class="mb-5 text-center">
+		<select class="w-full max-w-xs select select-primary" bind:value={selected}>
 			{#each configNames as configName}
 				<option value={configName}>{configName}</option>
 			{/each}
@@ -60,7 +65,7 @@
 	<form on:submit={handleSubmit}>
 		<!-- <JSONEditor bind:content /> -->
 		<JsonEditorWithLabel label="Config Editor" name="config" bind:content />
-		<div class="text-center mt-10">
+		<div class="mt-10 text-center">
 			<button class="btn btn-primary" type="submit" disabled={loading}>Save</button>
 		</div>
 	</form>

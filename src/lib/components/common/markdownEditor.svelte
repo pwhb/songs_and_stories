@@ -27,7 +27,7 @@
 			class="w-full textarea textarea-bordered"
 		/>
 	</div>
-	{#if !hide}
+	<!-- {#if !hide}
 		<div class="flex-1 p-3 mt-8 mb-1 rounded-2xl border-2 shadow-md border-neutral-200 bg-base-100">
 			{@html marked(value)}
 		</div>
@@ -40,5 +40,5 @@
 		<button class="btn btn-xs btn-ghost btn-circle" on:click={toggle}>
 			<img src="https://www.svgrepo.com/show/449931/times.svg" class="w-2" alt="minimize" />
 		</button>
-	{/if}
+	{/if} -->
 </div>

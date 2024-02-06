@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Meta from '$lib/components/layout/meta.svelte';
+	import NavButtons from '$lib/components/layout/navButtons.svelte';
 	import { filterResults } from '$lib/utils/filter';
 	import { getPreview, parsePublicDate } from '$lib/utils/formatters';
 	import { search } from '$lib/utils/stores';
@@ -31,10 +32,10 @@
 <div class="flex flex-col gap-10 p-2 mx-auto max-w-4xl md:p-10">
 	{#each filteredResults as { title, author, finishedAt, song, slug, body, titleImage }, idx}
 		<div class={idx % 2 == 0 ? 'flex justify-start' : 'flex justify-end'}>
-			<div class="p-3 max-w-xl shadow-xl md:p-5 card md:card-side bg-base-100">
-				<figure class="bg-slate-200 w-sm">
+			<div class="p-3 max-w-xl shadow-xl md:p-5 card bg-base-100">
+				<figure class="bg-slate-200">
 					<img
-						class=""
+						class="w-sm"
 						src={titleImage ? titleImage : config.stories.defaultTitleImg}
 						alt="Album"
 					/>
@@ -58,10 +59,14 @@
 						</div>
 					{/if}
 					<div class="justify-end card-actions">
-						<a href={`/stories/${slug}`} class="text-gray-100 lowercase btn btn-primary">read</a>
+						<a
+							href={`${$page.url.pathname}/${slug}`}
+							class="text-gray-100 lowercase btn btn-primary">read</a
+						>
 					</div>
 				</div>
 			</div>
 		</div>
 	{/each}
+	<NavButtons />
 </div>
