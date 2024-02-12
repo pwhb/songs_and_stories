@@ -3,12 +3,18 @@ import { MONGODB_DATABASE } from '$env/static/private';
 import clientPromise from '$lib/utils/mongodb';
 import { serialize } from '$lib/utils/validate';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals }) =>
+{
 	const client = await clientPromise;
 	const db = client.db(MONGODB_DATABASE);
 	const docs = await db
 		.collection('writings')
 		.aggregate([
+			{
+				$match: locals.user.role.name === 'admin' ? {} : {
+					author: locals.user._id
+				}
+			},
 			{
 				$lookup: {
 					from: 'users',
@@ -54,6 +60,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 			{ $sort: { finishedAt: -1 } }
 		])
 		.toArray();
+
 
 	return {
 		docs: serialize(docs)
