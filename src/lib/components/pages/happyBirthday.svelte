@@ -1,35 +1,51 @@
-<script>
-	import { fade, blur, fly, slide, scale } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
+<script lang="ts">
+	import NavButtons from '../layout/navButtons.svelte';
 
-	let books = [
-		'https://songsandstories.vercel.app/api/uploads/66028239211d7f76486905e5',
-		'https://songsandstories.vercel.app/api/uploads/6602825c211d7f76486905e6',
-		'https://songsandstories.vercel.app/api/uploads/66028289211d7f76486905e7',
-		'https://songsandstories.vercel.app/api/uploads/660282a0211d7f76486905e8',
-		'https://songsandstories.vercel.app/api/uploads/660282bf211d7f76486905e9',
-		'https://songsandstories.vercel.app/api/uploads/660282d3211d7f76486905ea',
-		'https://songsandstories.vercel.app/api/uploads/660282ee64bc5e67938ff44a',
-		'https://songsandstories.vercel.app/api/uploads/6602830e64bc5e67938ff44b'
-	];
-	let activeIndex = 0;
-	setInterval(() => {
-		activeIndex = (activeIndex + 1) % books.length;
-		//logic goes here
-	}, 5000);
+	import { onDestroy, onMount } from 'svelte';
+	import { crossfade, fade, slide } from 'svelte/transition';
+	import { bounceOut, quadIn, quintIn, quintOut, sineIn, sineOut } from 'svelte/easing';
+
+	export let birthdayPerson: any;
+
+	const carouselPhotos = birthdayPerson.images;
+
+	let i = 0;
+	function next() {
+		i = (i + 1) % carouselPhotos.length;
+	}
+
+	let timer: any;
+	onMount(() => {
+		let timer = setInterval(next, 5000);
+	});
+	onDestroy(() => {
+		clearInterval(timer);
+	});
+
+	$: src = carouselPhotos[i];
 </script>
 
-<div class="">
-	{#each books as book, i}
-		{#if activeIndex === i}
-			<img
-				transition:scale={{ delay: 250, duration: 300, easing: quintOut }}
-				class="absolute mx-auto"
-				src={book}
-				width="500"
-				height="300"
-				alt=""
-			/>
+<div
+	class="min-h-[75vh] hero"
+	style={`background-image: url(https://songsandstories.vercel.app/api/uploads/66027a3483840785e6728812);`}
+>
+	<div class="flex flex-col h-[75vh] items-center">
+		<h1
+			class="mb-5 max-w-xl lowercase text-5xl font-bold [text-shadow:_0_6px_0_rgb(0_0_0_/_40%)] text-neutral-content text-center"
+		>
+			{birthdayPerson.text}
+		</h1>
+		{#if carouselPhotos.length}
+			{#key src}
+				<img
+					transition:slide={{ delay: 200, duration: 500 }}
+					{src}
+					alt=""
+					class="p-10 mx-auto h-96 bg-white"
+				/>
+			{/key}
 		{/if}
-	{/each}
+
+		<NavButtons />
+	</div>
 </div>
