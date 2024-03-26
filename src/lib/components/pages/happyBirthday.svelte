@@ -15,7 +15,7 @@
 
 	let timer: any;
 	onMount(() => {
-		let timer = setInterval(next, 5000);
+		let timer = setInterval(next, birthdayPerson.interval || 5000);
 	});
 	onDestroy(() => {
 		clearInterval(timer);
@@ -31,7 +31,7 @@
 	<div class="bg-opacity-30 hero-overlay" />
 	<div class="flex flex-col h-[75vh] items-center justify-center gap-5">
 		<h1
-			class="mb-5 max-w-md lowercase text-5xl font-bold [text-shadow:_0_6px_0_rgb(0_0_0_/_40%)] text-neutral-content text-center"
+			class="mb-5 max-w-md lowercase text-4xl md:text-5xl font-bold [text-shadow:_0_6px_0_rgb(0_0_0_/_40%)] text-neutral-content text-center"
 		>
 			{birthdayPerson.text}
 		</h1>
