@@ -1,6 +1,48 @@
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+const nthNumber = (n: number) =>
+{
+	if (n > 3 && n < 21) return 'th';
+	switch (n % 10)
+	{
+		case 1:
+			return 'st';
+		case 2:
+			return 'nd';
+		case 3:
+			return 'rd';
+		default:
+			return 'th';
+	}
+};
+
+export const getBirthdayPersons = (birthdays: any[]) =>
+{
+	const filtered = birthdays.filter(b =>
+	{
+		const now = dayjs().tz(b.timezone);
+		const birth = dayjs(b.date).tz(b.timezone);
+		b.years = now.diff(birth, 'year');
+		b.text = b.text || `Happy ${b.years}${nthNumber(b.years)} Birthday, ${b.name}!`;
+		return now.date() === birth.date() && now.month() === birth.month();
+	});
+
+	return filtered;
+};
+
+export const getOneBirthdayPerson = (birthdayPersons: any[]) =>
+{
+	const importantOnes = birthdayPersons.filter(b => b.important);
+	const length = importantOnes.length ? importantOnes.length : birthdayPersons.length;
+	const randIdx = Math.floor(Math.random() * length);
+	return importantOnes.length ? importantOnes[randIdx] : birthdayPersons[randIdx];
+};
 export const slugify = (str: string) =>
 {
 	const split = str.toLowerCase().replace('?', '').split(' ');
