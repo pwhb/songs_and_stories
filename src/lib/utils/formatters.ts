@@ -29,7 +29,7 @@ export const getBirthdayPersons = (birthdays: any[]) =>
 		const now = dayjs().tz(b.timezone);
 		const birth = dayjs(b.date).tz(b.timezone);
 		b.years = now.diff(birth, 'year');
-		b.text = `Happy ${b.years}${nthNumber(b.years)} Birthday, ${b.name}!`;
+		b.text = b.text || `Happy ${b.years}${nthNumber(b.years)} Birthday, ${b.name}!`;
 		return now.date() === birth.date() && now.month() === birth.month();
 	});
 

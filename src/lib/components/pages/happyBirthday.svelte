@@ -2,8 +2,7 @@
 	import NavButtons from '../layout/navButtons.svelte';
 
 	import { onDestroy, onMount } from 'svelte';
-	import { crossfade, fade, slide } from 'svelte/transition';
-	import { bounceOut, quadIn, quintIn, quintOut, sineIn, sineOut } from 'svelte/easing';
+	import { slide } from 'svelte/transition';
 
 	export let birthdayPerson: any;
 
@@ -29,9 +28,10 @@
 	class="min-h-[75vh] hero"
 	style={`background-image: url(https://songsandstories.vercel.app/api/uploads/66027a3483840785e6728812);`}
 >
-	<div class="flex flex-col h-[75vh] items-center">
+	<div class="bg-opacity-30 hero-overlay" />
+	<div class="flex flex-col h-[75vh] items-center justify-center gap-5">
 		<h1
-			class="mb-5 max-w-xl lowercase text-5xl font-bold [text-shadow:_0_6px_0_rgb(0_0_0_/_40%)] text-neutral-content text-center"
+			class="mb-5 max-w-md lowercase text-5xl font-bold [text-shadow:_0_6px_0_rgb(0_0_0_/_40%)] text-neutral-content text-center"
 		>
 			{birthdayPerson.text}
 		</h1>
@@ -41,7 +41,7 @@
 					transition:slide={{ delay: 200, duration: 500 }}
 					{src}
 					alt=""
-					class="p-10 mx-auto h-96 bg-white"
+					class="object-cover p-10 mx-auto h-96 bg-white rounded-md shadow-lg"
 				/>
 			{/key}
 		{/if}
