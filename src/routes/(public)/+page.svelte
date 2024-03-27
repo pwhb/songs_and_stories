@@ -4,7 +4,6 @@
 	import HappyBirthday from '$lib/components/pages/happyBirthday.svelte';
 	import Home from '$lib/components/pages/home.svelte';
 	import { getBirthdayPersons, getOneBirthdayPerson } from '$lib/utils/formatters';
-	import dayjs from 'dayjs';
 
 	const { config, birthdayConfig } = $page.data;
 	const birthdayPersons = getBirthdayPersons(birthdayConfig.birthdays);
@@ -25,7 +24,7 @@
 </script>
 
 <Meta {metadata} />
-{#if birthdayPersons.length}
+{#if birthdayPerson}
 	<HappyBirthday {birthdayPerson} />
 {:else}
 	<Home />

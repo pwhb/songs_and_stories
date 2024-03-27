@@ -6,7 +6,7 @@
 
 	export let birthdayPerson: any;
 
-	const carouselPhotos = birthdayPerson.images;
+	const carouselPhotos = birthdayPerson.images || [];
 
 	let i = 0;
 	function next() {
